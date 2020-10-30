@@ -36,6 +36,8 @@ app.post("/register", (req, res) => {
          db.none("INSERT INTO users(username, password, height, weight) VALUES($1,$2,$3,$4)", [
             username,
             hash,
+            height,
+            weight
          ]).then(() => {
             res.redirect("/")
          })
