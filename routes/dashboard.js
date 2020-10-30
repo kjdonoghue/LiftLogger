@@ -12,20 +12,18 @@ const db = pgp(connectionString)
 router.get("/", (req, res) => {
     db.any('SELECT workout_id, title, exercises FROM workouts')
     .then(routines => {
-        console.log(routines)
+        // console.log(routines)
         res.render('dashboard', {allRoutines: routines})
     })
 })
 
 
+/* Go to clicked routines page */
+router.post("/workout", (req, res) => {
+    let workout_id = req.body.workout_id
 
-/* Go to clicked routines pate */
-// router.post("/chooseWorkout", (req, res) => {
-//     let routine_id = req.body.routine_id
-    
+    res.render("clicked")
 
-//     res.render("/clickedRoutine", {Routine: selectedRoutine})
-
-// })
+})
 
 module.exports = router

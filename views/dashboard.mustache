@@ -5,6 +5,11 @@
 </head>
 
     <body>
+        <header>
+    
+        </header>
+
+
         <div class="container">
             <div class="topContainer">
                 <h1> Welcome User </h1>
@@ -15,13 +20,21 @@
             <div class="lowerContainer">
                 <h1>Workout history</h1>
             
-                {{#allRoutines}}
-                    <form method= "POST" action="/chooseRoutine">   
-                        <p>{{workout_id}}</p>
-                        <p>{{title}} - {{exercises}}</p>
-                        <input type="hidden" value={{id}} name={{routine_id}} />
-                        <button>Do This Workout</button>  
-                    </form>
+                {{#allRoutines}} 
+                    <div class="workoutItem">
+                        <form method= "POST" action="/dashboard/workout"> 
+                            <div class="workoutImage">
+                                <label class="displayTitle">{{title}}</label>
+                            </div>
+                            <div class="routineInfo">
+                                <label><b>{{title}}</b></label> 
+                                <label>Includes: {{exercises}}</label>
+                                <input type="hidden" value={{workout_id}} name="workout_id"/>
+                                <button>Start Workout</button>
+                            </div>
+                        </form>
+                    </div>
+
                 {{/allRoutines}}
 
 

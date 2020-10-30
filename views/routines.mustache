@@ -1,27 +1,43 @@
 <html>
 <head>
-        <title>WORKOUT APP | Dashboard</title>
+        <title>WORKOUT APP | ROUTINES</title>
         <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 
     <body>
         <div class="container">
             <div class="topContainer">
-                <button> Create New Routine </button>
+
+                <h1>Workout Routines</h1>
+                
 
             </div>
 
             <div class="lowerContainer">
-                <h1>Workout Routines</h1>
+                <div class="custom">
+                    <h2>Your Routines:</h2> <button> Create New Routine </button>
+                </div>
+                {{! Your Routines Section }}
 
-                {{#allRoutines}}
+                <h2>All Routines</h2>
+                <div class="routinesContainer">
+                    {{#allRoutines}}
+                    <div class="workoutItem">
+                        <form method= "POST" action="/routines/workout"> 
+                            <div class="workoutImage">
+                                <label class="displayTitle">{{title}}</label>
+                            </div>
+                            <div class="routineInfo">
+                                <label><b>{{title}}</b></label> 
+                                <label>Includes: {{exercises}}</label>
+                                <input type="hidden" value={{workout_id}} name="workout_id"/>
+                                <button>Start Workout</button>
+                            </div>
+                        </form>
+                    </div>
 
-                <p>{{id}}</p>
-                <p>{{title}}</p>
-                <p>{{body_part}}</p>
-
-                {{/allRoutines}}
-
+                    {{/allRoutines}}
+                </div> 
 
             </div>
 

@@ -20,6 +20,10 @@ app.set('views','./views')
 // extension will be .mustache
 app.set('view engine','mustache')
 
+// css stylesheet
+app.use("/css", express.static("css"))
+
+//routes
 app.use("/dashboard", dashboardRouter)
 app.use("/routines", routinesRouter)
 
