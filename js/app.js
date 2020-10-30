@@ -8,8 +8,6 @@ const connectionString = 'postgres://localhost:5432/mydatabase'
 const db = pgp(connectionString)
 const mustacheExpress = require('mustache-express')
 /* CONSTANTS */
-
-
 app.use(express.urlencoded())
 app.engine('mustache',mustacheExpress())
 // the pages are located in views directory
