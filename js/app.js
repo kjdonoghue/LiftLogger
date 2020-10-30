@@ -29,6 +29,8 @@ app.get("/", (req, res) => {
 app.post("/register", (req, res) => {
    let username = req.body.username
    let password = req.body.password
+   let height = req.body.height
+   let weight = req.body.weight
    bcrypt.genSalt(10, function (err, salt) {
       bcrypt.hash(password, salt, function (err, hash) {
          db.none("INSERT INTO users(username, password) VALUES($1,$2)", [
