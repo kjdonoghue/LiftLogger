@@ -8,7 +8,6 @@ const connectionString =
    "postgres://skvpwhin:lXgkojz2TanCel7pEUUSDtGg-bEKm4NW@lallah.db.elephantsql.com:5432/skvpwhin"
 const db = pgp(connectionString)
 const mustacheExpress = require("mustache-express")
-const { RSA_NO_PADDING } = require("constants")
 /* CONSTANTS END*/
 
 /* CREATING VIEWS */
