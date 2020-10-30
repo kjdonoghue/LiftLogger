@@ -33,7 +33,7 @@ app.post("/register", (req, res) => {
    let weight = req.body.weight
    bcrypt.genSalt(10, function (err, salt) {
       bcrypt.hash(password, salt, function (err, hash) {
-         db.none("INSERT INTO users(username, password) VALUES($1,$2)", [
+         db.none("INSERT INTO users(username, password, height, weight) VALUES($1,$2,$3,$4)", [
             username,
             hash,
          ]).then(() => {
