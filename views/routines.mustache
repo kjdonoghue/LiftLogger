@@ -1,0 +1,33 @@
+<html>
+<head>
+        <title>WORKOUT APP | Dashboard</title>
+        <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+
+    <body>
+        <div class="container">
+            <div class="topContainer">
+                <button> Create New Routine </button>
+
+            </div>
+
+            <div class="lowerContainer">
+                <h1>Workout Routines</h1>
+
+                {{#allRoutines}}
+
+                <p>{{id}}</p>
+                <p>{{title}}</p>
+                <p>{{body_part}}</p>
+
+                {{/allRoutines}}
+
+
+            </div>
+
+
+
+        </div>
+
+    </body>
+</html>

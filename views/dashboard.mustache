@@ -1,0 +1,35 @@
+<html>
+<head>
+        <title>WORKOUT APP | Dashboard</title>
+        <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+
+    <body>
+        <div class="container">
+            <div class="topContainer">
+                <h1> Welcome User </h1>
+                <button> Go to Routines </button>
+
+            </div>
+
+            <div class="lowerContainer">
+                <h1>Workout history</h1>
+            
+                {{#allRoutines}}
+                    <form method= "POST" action="/chooseRoutine">   
+                        <p>{{workout_id}}</p>
+                        <p>{{title}} - {{exercises}}</p>
+                        <input type="hidden" value={{id}} name={{routine_id}} />
+                        <button>Do This Workout</button>  
+                    </form>
+                {{/allRoutines}}
+
+
+            </div>
+
+
+
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "digitalcrafts-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/app.js", 
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChapmanChappelle/DigitalCrafts-BackEnd.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChapmanChappelle/DigitalCrafts-BackEnd/issues"
+  },
+  "homepage": "https://github.com/ChapmanChappelle/DigitalCrafts-BackEnd#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mustache-express": "^1.3.0",
+    "pg-promise": "^10.7.1"
+  }
+}
