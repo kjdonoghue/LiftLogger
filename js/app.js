@@ -22,7 +22,7 @@ app.get('/',(req,res) => {
 
 
 
-
+//LISTENER
 app.listen(PORT, () => {
    console.log('Server is running...')
 })
