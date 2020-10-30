@@ -25,6 +25,11 @@ app.get("/", (req, res) => {
 })
 /* INITIAL PAGE END*/
 
+/* USER PAGE */
+app.get("/user", (req,res) => {
+   res.render("sign-in")
+})
+/* USER PAGE END*/
 /* REGISTER FUNCTION */
 app.post("/register", (req, res) => {
    let username = req.body.username
@@ -39,7 +44,7 @@ app.post("/register", (req, res) => {
             height,
             weight
          ]).then(() => {
-            res.redirect("/")
+            res.redirect("index")
          })
       })
    })
