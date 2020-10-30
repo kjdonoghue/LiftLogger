@@ -2,7 +2,7 @@
   "name": "digitalcrafts-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index",
   "dependencies": {
     "node": "^15.0.1",
     "nodemon": "^2.0.6",
