@@ -59,7 +59,7 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
    let username = req.body.username
    let password = req.body.password
-   db.any("SELECT username, password FROM users").then((users) => {
+   db.any("SELECT username, password, user_id FROM users").then((users) => {
       users.forEach((element) => {
          if (username == element.username) {
             loggedIn = bcrypt
@@ -68,6 +68,7 @@ app.post("/login", (req, res) => {
                   if (result == true) {
                      if (req.session) {
                         req.session.username = username
+                        req.session.userId = user_id
                      }
                      res.redirect("/testPage") // this will need to change to the dashboard
                   } else {
