@@ -49,7 +49,7 @@ app.post("/register", (req, res) => {
             // hash password
             bcrypt.genSalt(10, function (err, salt) {
                bcrypt.hash(password, salt, function (err, hash) {
-                  // 
+                  // adds the user info to the table
                   db.none(
                      "INSERT INTO users(username, password, height, weight) VALUES($1,$2,$3,$4)",
                      [username, hash, height, weight]
