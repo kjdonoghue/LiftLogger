@@ -40,14 +40,24 @@ app.post("/register", (req, res) => {
    let password = req.body.password
    let height = req.body.height
    let weight = req.body.weight
-   bcrypt.genSalt(10, function (err, salt) {
-      bcrypt.hash(password, salt, function (err, hash) {
-         db.none(
-            "INSERT INTO users(username, password, height, weight) VALUES($1,$2,$3,$4)",
-            [username, hash, height, weight]
-         ).then(() => {
-            res.redirect("/login")
-         })
+   db.any("SELECT username FROM users").then((users) => {
+      users.forEach((element) => {
+         if (username != element.username) {
+            bcrypt.genSalt(10, function (err, salt) {
+               bcrypt.hash(password, salt, function (err, hash) {
+                  db.none(
+                     "INSERT INTO users(username, password, height, weight) VALUES($1,$2,$3,$4)",
+                     [username, hash, height, weight]
+                  ).then(() => {
+                     res.redirect("/login")
+                  })
+               })
+            })
+         } else {
+            res.render("register", {
+               message: "Username already exists",
+            })
+         }
       })
    })
 })
