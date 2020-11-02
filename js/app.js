@@ -20,13 +20,7 @@ app.set("views", "./views")
 app.set("view engine", "mustache")
 /* CREATING VIEWS END*/
 
-/* INITIAL PAGE */
-app.get("/", (req, res) => {
-   res.render("index")
-})
-/* INITIAL PAGE END*/
-
-/******************* AUTHENTICATION STUFF *****************/
+/***************************** AUTHENTICATION STUFF ***************************** */
 // initalize the session
 app.use(express.urlencoded())
 app.use(
@@ -65,7 +59,6 @@ app.get("/login", (req, res) => {
 app.post("/login", (req, res) => {
    let username = req.body.username
    let password = req.body.password
-
    db.any("SELECT username, password FROM users").then((users) => {
       users.forEach((element) => {
          if (username == element.username) {
@@ -73,10 +66,10 @@ app.post("/login", (req, res) => {
                .compare(password, element.password)
                .then(function (result) {
                   if (result == true) {
-                     if(req.session){
+                     if (req.session) {
                         req.session.username = username
                      }
-                     res.redirect("/test")
+                     res.redirect("/testPage") // this will need to change to the dashboard
                   } else {
                      res.render("login", {
                         message: "Username or password is incorrect",
@@ -89,10 +82,11 @@ app.post("/login", (req, res) => {
 })
 
 // authentication middleware
-function authenticate(req,res,next) {
-   if(req.session) {
-      if(req.session.username){
+function authenticate(req, res, next) {
+   if (req.session) {
+      if (req.session.username) {
          // continue with the original request
+         console.log(req.session.username)
          next()
       } else {
          res.redirect("/login")
@@ -101,7 +95,12 @@ function authenticate(req,res,next) {
       res.redirect("/login")
    }
 }
-/******************* AUTHENTICATION STUFF *****************/
+// just a test page to see if middleware works
+app.get("/testPage", authenticate, (req, res) => {
+   let user = req.session.username
+   res.render("test", { user: user })
+})
+/***************************** AUTHENTICATION STUFF ***************************** */
 
 //LISTENER
 app.listen(PORT, () => {
