@@ -20,7 +20,7 @@ app.set("views", "./views")
 app.set("view engine", "mustache")
 /* VIEWS END*/
 
-/***************************** AUTHENTICATION STUFF ***************************** */
+/***************************** AUTHENTICATION STUFF ******************************/
 // initalize session
 app.use(express.urlencoded())
 app.use(
@@ -121,7 +121,7 @@ app.get("/testPage", authenticate, (req, res) => {
    let user = req.session.username
    res.render("test", { user: user })
 })
-/***************************** AUTHENTICATION STUFF ***************************** */
+/***************************** AUTHENTICATION STUFF END ******************************/
 
 //LISTENER
 app.listen(PORT, () => {
