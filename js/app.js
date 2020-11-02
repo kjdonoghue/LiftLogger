@@ -8,7 +8,7 @@ const connectionString =
    "postgres://skvpwhin:lXgkojz2TanCel7pEUUSDtGg-bEKm4NW@lallah.db.elephantsql.com:5432/skvpwhin"
 const db = pgp(connectionString)
 const mustacheExpress = require("mustache-express")
-const session = require('express-session')
+const session = require("express-session")
 /* CONSTANTS END*/
 
 /* CREATING VIEWS */
@@ -29,17 +29,13 @@ app.get("/", (req, res) => {
 /******************* AUTHENTICATION STUFF *****************/
 // initalize the session
 app.use(express.urlencoded())
-app.use(session({
-   secret: "keyboard cat",
-   resave: false,
-   saveUnitialized: true
-}))
-// logging middleware
-function loggingMiddleware(req,res, next) {
-   console.log("LOGGING MIDDLEWARE")
-   next() // continue with the original request 
-}
-app.use(loggingMiddleware)
+app.use(
+   session({
+      secret: "keyboard cat",
+      resave: false,
+      saveUnitialized: true,
+   })
+)
 // registration page action
 app.get("/register", (req, res) => {
    res.render("register")
@@ -73,18 +69,38 @@ app.post("/login", (req, res) => {
    db.any("SELECT username, password FROM users").then((users) => {
       users.forEach((element) => {
          if (username == element.username) {
-            console.log("W")
-            bcrypt.compare(password, element.password).then(function (result) {
-               if (result == true) {
-                  res.render('login',{message: 'Username or password is correct'})
-               } else {
-                  res.render('login',{message: 'Username or password is incorrect'})
-               }
-            })
+            loggedIn = bcrypt
+               .compare(password, element.password)
+               .then(function (result) {
+                  if (result == true) {
+                     if(req.session){
+                        req.session.username = username
+                     }
+                     res.redirect("/test")
+                  } else {
+                     res.render("login", {
+                        message: "Username or password is incorrect",
+                     })
+                  }
+               })
          }
       })
    })
 })
+
+// authentication middleware
+function authenticate(req,res,next) {
+   if(req.session) {
+      if(req.session.username){
+         // continue with the original request
+         next()
+      } else {
+         res.redirect("/login")
+      }
+   } else {
+      res.redirect("/login")
+   }
+}
 /******************* AUTHENTICATION STUFF *****************/
 
 //LISTENER
