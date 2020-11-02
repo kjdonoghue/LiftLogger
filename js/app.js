@@ -3,7 +3,7 @@ const express = require("express")
 const app = express()
 const PORT = 3000
 const pgp = require("pg-promise")()
-const bcrypt = require("bcryptjs")
+var bcrypt = require("bcryptjs")
 const connectionString =
    "postgres://skvpwhin:lXgkojz2TanCel7pEUUSDtGg-bEKm4NW@lallah.db.elephantsql.com:5432/skvpwhin"
 const db = pgp(connectionString)
@@ -11,21 +11,21 @@ const mustacheExpress = require("mustache-express")
 const session = require("express-session")
 /* CONSTANTS END*/
 
-/* VIEWS */
+/* CREATING VIEWS */
 app.use(express.urlencoded())
 app.engine("mustache", mustacheExpress())
 // the pages are located in views directory
 app.set("views", "./views")
 // extension will be .mustache
 app.set("view engine", "mustache")
-/* VIEWS END*/
+/* CREATING VIEWS END*/
 
-/***************************** AUTHENTICATION STUFF ******************************/
-// initalize session
+/***************************** AUTHENTICATION STUFF ***************************** */
+// initalize the session
 app.use(express.urlencoded())
 app.use(
    session({
-      secret: "keyboard cat", // this needs to be changed
+      secret: "keyboard cat",
       resave: false,
       saveUnitialized: true,
    })
@@ -36,20 +36,15 @@ app.get("/register", (req, res) => {
 })
 // create user
 app.post("/register", (req, res) => {
-   // taking user inputs
    let username = req.body.username
    let password = req.body.password
    let height = req.body.height
    let weight = req.body.weight
-   // checks if the username already exists, if not continue, if it does page reloads with a "Username already exists" message
    db.any("SELECT username FROM users").then((users) => {
-      // loop through every username inside the users table
       users.forEach((element) => {
          if (username != element.username) {
-            // hash password
             bcrypt.genSalt(10, function (err, salt) {
                bcrypt.hash(password, salt, function (err, hash) {
-                  // adds the user info to the table
                   db.none(
                      "INSERT INTO users(username, password, height, weight) VALUES($1,$2,$3,$4)",
                      [username, hash, height, weight]
@@ -72,14 +67,10 @@ app.get("/login", (req, res) => {
 })
 // log in function
 app.post("/login", (req, res) => {
-   // taking user input
    let username = req.body.username
    let password = req.body.password
-   // gets all user info from users table
    db.any("SELECT username, password, user_id FROM users").then((users) => {
-      // loop through users
       users.forEach((element) => {
-         // if username is correct, then check password accuracy with the compare function (bcryptjs). If password is incorrect, display "Username or password is incorrect"
          if (username == element.username) {
             loggedIn = bcrypt
                .compare(password, element.password)
@@ -95,15 +86,11 @@ app.post("/login", (req, res) => {
                      })
                   }
                })
-         } else {
-            res.render("login", {
-               message: "Username or password is incorrect",
-            })
          }
       })
    })
 })
-// authentication middleware, redirects to login page if user doesnt exist in session
+// authentication middleware
 function authenticate(req, res, next) {
    if (req.session) {
       if (req.session.username) {
@@ -116,12 +103,12 @@ function authenticate(req, res, next) {
       res.redirect("/login")
    }
 }
-// test page for middleware
+// just a test page to see if middleware works
 app.get("/testPage", authenticate, (req, res) => {
    let user = req.session.username
    res.render("test", { user: user })
 })
-/***************************** AUTHENTICATION STUFF END ******************************/
+/***************************** AUTHENTICATION STUFF ***************************** */
 
 //LISTENER
 app.listen(PORT, () => {
