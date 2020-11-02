@@ -1,48 +1,78 @@
 <html>
 <head>
         <title>WORKOUT APP | Dashboard</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 
-    <body>
-        <header>
-    
-        </header>
-
+    <body onload='showBadge()'>
 
         <div class="container">
-            <div class="topContainer">
-                <h1> Welcome User </h1>
-                <button> Go to Routines </button>
+        {{> header}}
+        {{#Dashboard}}
+            <div class="upperContainer">
+                <h1> Welcome {{name}}</h1>
 
+                <h2>Stats</h2>
+                <div class="statsContainer">
+                    <div class="statsDiv">
+                        <p>height: {{height}}</p>
+                        <p>weight: {{weight}}</p>
+                        <p>age</p>
+
+                        <p>Weekly Goal: X of {{goal}}</p>
+                        <p>Monthly Goal: X of {{goal}}</p>
+                    </div>
+
+                    <div class="statsDiv">
+                        <div id="badge">                                     
+                        </div>
+                   
+                        <p># of Total Workouts</p>
+                    </div>
+                </div>
+                
+                <div>
+                {{! is this a link or do we need to pass user id in a form?}}
+                    <a href="routines">
+                        <button class="toRoutinesButton"> Go to Routines </button>
+                    </a>
+                </div>
             </div>
 
             <div class="lowerContainer">
-                <h1>Workout history</h1>
+                <h2>Workout History</h2>
+
+                <div class="routinesContainer">
             
-                {{#allRoutines}} 
-                    <div class="workoutItem">
-                        <form method= "POST" action="/dashboard/workout"> 
+                {{#workouts}} 
+                    <div class="workoutItem"> 
+                        <form method= "POST" action="/select">
+
                             <div class="workoutImage">
-                                <label class="displayTitle">{{title}}</label>
+                                <img src="https://images.pexels.com/photos/2294354/pexels-photo-2294354.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+                                <b class="displayTitle">{{title}}</b>
                             </div>
                             <div class="routineInfo">
                                 <label><b>{{title}}</b></label> 
-                                <label>Includes: {{exercises}}</label>
-                                <input type="hidden" value={{workout_id}} name="workout_id"/>
-                                <button>Start Workout</button>
-                            </div>
+                                <span>Includes: {{exercises}}</span>
+                                <input type="hidden" value={{workout_id}} name="workout_id"/>            
+                                <button class="redoButton">Repeat This Workout</button>         
+                            </div>   
                         </form>
                     </div>
 
-                {{/allRoutines}}
-
+                {{/workouts}}
+                </div>
 
             </div>
-
+            {{/Dashboard}}
 
 
         </div>
 
+
+    <script src="client/client-app.js"></script>
     </body>
 </html>

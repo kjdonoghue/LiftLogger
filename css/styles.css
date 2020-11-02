@@ -1,60 +1,246 @@
+/* Universal */
+body {
+    font-family: Arial;
+    background-color: rgb(250, 250, 250);
+}
 
+/* Dashoard Page */
+.statsContainer {
+    display: flex;
+}
 
-/* Routines Page */
-.lowerContainer {
+.statsDiv {
+    text-align: center
+}
+
+.toRoutinesButton {
+    border: none;
+    padding: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    background-color: lightslategray;
+}
+
+.redoButton {
+    align-self: center;
+    margin-bottom: 20px;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    background-color: lightslategray;
+
+}
+
+/* Routines & Dashboard Pages */
+
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+.upperContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1000;
+}
 
+.lowerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+}
 
+.lowerContainer h1, h2 {
+    font-size: 26px;
+}
 .routinesContainer {
     display: flex;
-    justify-content: center;
-    width: 95%;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .workoutItem {
-    background-color: rgb(232, 232, 232);
-    width: 90%;
-    border-radius: 2%;
+    background-color: white;
+    width: 95%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    max-width: 400px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
+}
+
+.workoutItem:hover {
+    border-style: solid;
+} 
+
+form {
+    margin: 0px;
+}
+
+/* this button is hidden behind form on routine's page*/
+.hiddenButton {
+    border: none;
+    padding: 0px;
+    width: 100%;
 }
 
 .workoutImage {
-    background-image: url('https://images.unsplash.com/photo-1517265853097-ba300fc3c4d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80');
-    margin: 20px;
-    height: 250px;
-    display: flex;
-    justify-content: center;
+    height: 200px;
+    position: relative;
 }
 
-.displayTitle{
+.workoutImage img {
+    width: 100%;
+    height: 100%;
+}
+
+/* workout name on top of image */
+.displayTitle {
     color: white;
-    font-size: 75px;
+    font-size: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    margin: auto;
 
 }
+/* bottom section of workout item */
 .routineInfo {
     display: flex;
     flex-direction: column;
+    text-align: left;
     margin-left: 20px;
     margin-right: 20px;
+    margin-top: 10px;
 }
 
-.routineInfo button {
-    margin-top: 10px;
-    margin-bottom: 20px;
+.workoutItem label {
+    font-size: 18px;
+}
+
+.workoutItem span {
+    font-size: 16px;
     height: 50px;
-    border: none;
-    padding: 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 25px;
-    cursor: pointer;
-    border-radius: 3%;
+}
+
+@media only screen and (min-width: 600px) {
+
+    /* Dashboard and Routines Pages */
+        
+    .lowercontainer h2 {
+        align-self: end;
+    }
+
+    .routinesContainer {
+        flex-direction: row;
+        justify-content: left;
+        flex-wrap: wrap;
+    }
+
+    .workoutItem {
+        margin: 20px;
+        max-width: 250px;
+    }
+
+    .workoutItem span {
+        height: 75px;
+    }
+
+}
+
+
+/* MENU CSS */
+
+.header {
+    width: 100%;
+}
+
+/* Hide Desktop Menu */
+.barNavMenu {
+    display: none;
+}
+
+/* Hamburger Menu */
+/* Style the navigation menu */
+.hamNavMenu {
+    background-color: slategray;
+    position: relative;
+  }
+  
+  /* Hide the links in hamburger menu */
+  .hamNavMenu #menuLinks { 
+    display: none;
+  }
+  
+  /* hamburger menu links */
+  .hamNavMenu a {
     color: white;
-    background-color: lightslategray;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+  }
+  
+  /* hamburger menu icon */
+  .hamNavMenu a.icon {
+    background: black;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+  /* Add a grey background color on mouse-over */
+  .hamNavMenu a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Style the active link (or home/logo) */
+  .active {
+    background-color: slategray;
+    color: white;
+
+  }
+
+  @media only screen and (min-width: 600px) {   
+    .hamNavMenu {
+        display: none;
+    }
+
+    .barNavMenu {
+        display: block;
+        overflow: hidden;
+        background-color: slategray;
+
+    }
+    
+    .barNavMenu a {
+        /* color: white; */
+        color: black;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        float: left;
+        text-align: center;
+    }
+    
+    .links {
+        float: right;
+    } 
+
+    .barNavMenu a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
 }
