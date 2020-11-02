@@ -78,7 +78,6 @@ app.post("/login", (req, res) => {
                   if (result == true) {
                      if (req.session) {
                         req.session.username = username
-                        req.session.userId = user_id
                      }
                      res.redirect("/testPage") // this will need to change to the dashboard
                   } else {
@@ -91,13 +90,11 @@ app.post("/login", (req, res) => {
       })
    })
 })
-
 // authentication middleware
 function authenticate(req, res, next) {
    if (req.session) {
       if (req.session.username) {
          // continue with the original request
-         console.log(req.session.username)
          next()
       } else {
          res.redirect("/login")
