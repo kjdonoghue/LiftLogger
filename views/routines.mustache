@@ -7,29 +7,27 @@
 
     <body>
         <div class="container">
-           
+             {{> header}}
             <div class="lowerContainer"> 
                   <h2>Workout Routines:</h2>    
                 
                 <div class="routinesContainer">
 
-                  {{! Create a new routine}}
-                    
-              
-                        <div class="workoutItem">
-                            <form method= "POST" action="">
-                                <button class="hiddenButton"> 
-                                    <div class="workoutImage">
-                                        <img src="https://images.pexels.com/photos/221247/pexels-photo-221247.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
-                                        <b class="displayTitle">Create a Custom Routine</b>
-                                    </div>
-                                    <div class="routineInfo">
-                                        <label><b>Custom Routine</b></label> 
-                                        <span>Includes: Create your own routine from available exercises</span>                           
-                                    </div>
-                                </button>
-                            </form>         
-                        </div>
+                  {{! Create a new routine}}                    
+                    <div class="workoutItem">
+                        <form method= "POST" action="">
+                            <button class="hiddenButton"> 
+                                <div class="workoutImage">
+                                    <img src="https://images.pexels.com/photos/221247/pexels-photo-221247.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+                                    <b class="displayTitle">Create a Custom Routine</b>
+                                </div>
+                                <div class="routineInfo">
+                                    <label><b>Custom Routine</b></label> 
+                                    <span>Includes: Create your own routine from available exercises</span>                           
+                                </div>
+                            </button>
+                        </form>         
+                    </div>
 
                     {{! <h2>Select From Existing Routines</h2> }}
                     {{#allRoutines}}

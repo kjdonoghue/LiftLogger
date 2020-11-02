@@ -6,15 +6,21 @@
         <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 
-    <body onload='showBadge()'>
-
+ {{#Dashboard}}
+    {{#count}}
+    <body onload='showBadge({{count}})'>
+    {{/count}}
+    
         <div class="container">
         {{> header}}
-        {{#Dashboard}}
+       
             <div class="upperContainer">
                 <h1> Welcome {{name}}</h1>
-
-                <h2>Stats</h2>
+                <form method="GET" action="/edit-account">
+                <div>
+                    <h2>Stats</h2>
+                    <button>Edit</button>
+                </div>
                 <div class="statsContainer">
                     <div class="statsDiv">
                         <p>height: {{height}}</p>
@@ -23,15 +29,18 @@
 
                         <p>Weekly Goal: X of {{goal}}</p>
                         <p>Monthly Goal: X of {{goal}}</p>
+                                                 
                     </div>
 
                     <div class="statsDiv">
                         <div id="badge">                                     
                         </div>
-                   
-                        <p># of Total Workouts</p>
+                        {{#count}}
+                        <p>{{count}} Total Workouts</p>
+                         {{/count}}  
                     </div>
                 </div>
+                </form>
                 
                 <div>
                 {{! is this a link or do we need to pass user id in a form?}}
@@ -57,6 +66,7 @@
                             <div class="routineInfo">
                                 <label><b>{{title}}</b></label> 
                                 <span>Includes: {{exercises}}</span>
+                                {{! NEED to link a workout id }}
                                 <input type="hidden" value={{workout_id}} name="workout_id"/>            
                                 <button class="redoButton">Repeat This Workout</button>         
                             </div>   
@@ -67,12 +77,12 @@
                 </div>
 
             </div>
-            {{/Dashboard}}
+            
 
-
+        {{/Dashboard}}   
         </div>
-
-
+    
     <script src="client/client-app.js"></script>
     </body>
+
 </html>

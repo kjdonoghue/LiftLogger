@@ -9,10 +9,17 @@ function myFunction() {
   }
 
 
-  function showBadge() {
+  async function showBadge(numWorkout) {
     let div = document.getElementById("badge")
+    
+    if (numWorkout <=1) {
+      var message = "one workout"
+    } else if (numWorkout >1) {
+      var message = "more than one workout"
+    } else {
+      var message = "this isn't working"
+    }
 
-    div.innerHTML = 'the badge will go here'
-
-
+      div.innerHTML = message
+    
   }
