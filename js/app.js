@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const PORT = 3000
 const pgp = require('pg-promise')()
-// var bcrypt = require('bcryptjs');
+var bcrypt = require('bcryptjs');
 require('dotenv').config()
 const connectionString = process.env.CONNECTION_STRING
 const db = pgp(connectionString)
@@ -38,26 +38,25 @@ app.get("/dashboard", async (req, res) => {
         let userHistory = await db.any('SELECT user_id FROM histories')   
 
         let found = userHistory.find(user => {
-            console.log(user.user_id)
             return user.user_id == id
         })       
-
 
         if (found) {
             let result = await db.any('SELECT users.user_id, username, height, weight, workout_name, exercises FROM users JOIN histories ON users.user_id = histories.user_id WHERE users.user_id = $1 ORDER BY date_completed DESC LIMIT 7', [id])
             let count = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
+            
             user_dashboard = getUserDetails(result, count)
+
             res.render('dashboard', {Dashboard: user_dashboard})
             
         } else {
-            console.log("no match")
             let result = await db.any('SELECT users.user_id, username, height, weight FROM users WHERE user_id=$1', [id])
             res.render('dashboard', {Dashboard: result})
         }          
     
 })
 
-//function for getting dashboard info
+//function for getting dashboard info with workouts
 function getUserDetails(result, count) {
     
     user_dashboard = []
