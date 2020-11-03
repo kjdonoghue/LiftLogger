@@ -1,0 +1,92 @@
+<html>
+<head>
+        <title>WORKOUT APP | Dashboard</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+
+    {{> header}}
+    {{#Dashboard}}
+    {{#count}}
+    <body onload='showBadge({{count}})'>
+    {{/count}}
+    
+        <div class="container">
+        
+       
+            <div class="upperContainer">
+                <h1>Dashboard</h1>
+                <div class="statsContainer">
+                    <div class="statsDiv">
+                        <b>{{username}}'s Stats</b>
+                        <p>height: {{height}}</p>
+                        <p>weight: {{weight}}</p>
+                        <p>age</p>
+
+                        <p>Weekly Goal: X of {{goal}}</p>
+                        <p>Monthly Goal: X of {{goal}}</p>
+                                                 
+                    </div>
+
+                    <div class="statsDiv">
+                        {{#count}}
+                        <p>{{count}} Total Workouts</p>
+                         {{/count}}
+                         <div id="badge" class="badge">                                 
+        
+                        {{^count}}
+                         <img src="images/newbie-badge.png"/>
+                        {{/count}}  
+                        </div>
+                    </div>
+                </div>
+                             
+                <div>
+                {{! is this a link or do we need to pass user id in a form?}}
+                    <a href="routines">
+                        <button class="toRoutinesButton"> Go to Routines </button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="lowerContainer">
+                <h2>Workout History</h2>
+
+                <div class="routinesContainer">
+            
+                {{#workouts}} 
+                    <div class="workoutItem"> 
+                        <form method= "POST" action="/select">
+
+                            <div class="workoutImage">
+                                <img src="https://images.pexels.com/photos/2294354/pexels-photo-2294354.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+                                <b class="displayTitle">{{title}}</b>
+                            </div>
+                            <div class="routineInfo">
+                                <label><b>{{title}}</b></label> 
+                                <span>Includes: {{exercises}}</span>
+                                {{! NEED to link a workout id }}
+                                <input type="hidden" value={{workout_id}} name="workout_id"/>            
+                                <button class="redoButton">Repeat This Workout</button>         
+                            </div>   
+                        </form>
+                    </div>
+
+                {{/workouts}}
+
+                {{^workouts}}
+                    <p>There are no workouts in your history</p>
+                {{/workouts}}
+                </div>
+
+            </div>
+            
+
+        {{/Dashboard}}   
+        </div>
+    
+    <script src="client/client-app.js"></script>
+    </body>
+
+</html>
