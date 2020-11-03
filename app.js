@@ -118,11 +118,6 @@ app.get("/testPage", authenticate, (req, res) => {
    res.render("test", { user: user })
 })
 /***************************** AUTHENTICATION STUFF ***************************** */
-
-app.get('/helloWorld', (req, res) => {
-   res.send('Hello World')
-})
-
 /***************************** ROUTINE CREATOR STUFF ***************************** */
 
 
