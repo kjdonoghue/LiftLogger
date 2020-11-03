@@ -64,7 +64,7 @@
 
         {{! content area for the filters based on the body parts }}
         {{! uses a form for each of the bodyParts to redirect to a new page  }}
-        <div id = 'exerciseFilters'>
+        {{! <div id = 'exerciseFilters'>
             <h2>Filter</h2>
             <form method = 'POST' action = '/routineCreator/bodyPart'>
                 <button>Chest</button>
@@ -108,28 +108,28 @@
             </form>
             <a href = '/routineCreator'><button>All Exercises</button></a>
             
-        </div>
+        </div> }}
 
 
 
 
         {{! will show all of the exercises  }}
-        <div id = 'showExercises'>
+        {{! <div id = 'showExercises'>
             <h2>Exercises</h2>
                 <ul>
-                {{#allExercises}}
+                {{#allExercises }}
                     
-                    <div>
+                    {{! <div>
                         <li>
-                            <label>Exercise: {{title}}</label><br>
-                            <label>Body Parts: {{body_part}}</label><br>
-                            <label>Equipment: {{equipment_need}}</label>
-                        </li>
-                    </div>
+                            <label>Exercise: {{title</label><br> }}
+                            {{! <label>Body Parts: {{body_part</label><br> }}
+                            {{! <label>Equipment: {{equipment_need</label> }}
+                        {{! </li>
+                    </div>   }}
 
-                {{/allExercises}}
-                </ul>
-        </div>
+                {{! {{/allExercises }} 
+                {{! </ul>
+        </div>   }}
 
     </body>
 </html>
