@@ -22,7 +22,6 @@ app.set("view engine", "mustache")
 
 /***************************** AUTHENTICATION STUFF ***************************** */
 // initalize the session
-app.use(express.urlencoded())
 app.use(
    session({
       secret: "keyboard cat", // this needs to be fixed
