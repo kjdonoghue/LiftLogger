@@ -1,0 +1,135 @@
+<html>
+    <head></head>
+
+    <body>
+        {{! has the heading with the title of the page }}
+        <div id = 'heading'> 
+            <h1>Routine Creator</h1>
+        </div>
+
+
+
+
+        {{! creates a ul of checkboxes that will allow you to choose different workouts to post to the workouts table with the titles and name of workout  }}
+        <div id = 'routineCheckBoxes'>
+            <form method = 'POST' action = '/creatingRoutine'>
+                <input type = 'text' placeholder = 'Name of routine' name = 'title' />
+                <label><h2>Exercises:</h2></label>
+                <ul>  
+                  <li>Chest</li>
+                  <li><label><input type = 'checkbox' value = 'Bench Press' name = 'exercises'><span>Add Bench Press</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Dumbbell Flys' name = 'exercises'><span>Add Dumbbell Flys</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Incline Dumbbell Flys' name = 'exercises'><span>Add Incline Dumbbell Flys</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Incline Bench Press' name = 'exercises'><span>Add Incline Bench Press</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Pushups' name = 'exercises'><span>Add Pushups</span></label></li>
+                </ul>
+
+                <ul>  
+                  <li>Back</li>
+                  <li><label><input type = 'checkbox' value = 'Machine Row' name = 'exercises'><span>Add Machine Row</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Lat Pulls' name = 'exercises'><span>Add Lat Pulls</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Deadlift' name = 'exercises'><span>Add Deadlift</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Pullup' name = 'exercises'><span>Add Pullup</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Chinup' name = 'exercises'><span>Add Chinup</span></label></li>
+                </ul>
+
+                <ul>  
+                  <li>Legs</li>
+                  <li><label><input type = 'checkbox' value = 'Leg Extension' name = 'exercises'><span>Add Leg Extension</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Back Squat' name = 'exercises'><span>Add Back Squat</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Leg Press' name = 'exercises'><span>Add Leg Press</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Leg Curl' name = 'exercises'><span>Add Leg Curl</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Body Squats' name = 'exercises'><span>Add Body Squats</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Lunge' name = 'exercises'><span>Add Lunge</span></label></li>
+                </ul>
+
+                <ul>  
+                  <li>Abs</li>
+                  <li><label><input type = 'checkbox' value = 'Situps' name = 'exercises'><span>Add Situps</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Russian Twists' name = 'exercises'><span>Add Russian Twists</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Plank' name = 'exercises'><span>Add Plank</span></label></li>
+                </ul>
+
+                <ul>  
+                  <li>Full Body</li>
+                  <li><label><input type = 'checkbox' value = 'Burpees' name = 'exercises'><span>Add Burpees</span></label></li>
+                  <li><label><input type = 'checkbox' value = 'Bear Crawl' name = 'exercises'><span>Add Bear Crawl</span></label></li>
+                </ul>
+                
+                <button>Save Routine</button>
+            </form>
+        </div>
+
+
+
+        {{! content area for the filters based on the body parts }}
+        {{! uses a form for each of the bodyParts to redirect to a new page  }}
+        <div id = 'exerciseFilters'>
+            <h2>Filter</h2>
+            <form method = 'POST' action = '/routineCreator/bodyPart'>
+                <button>Chest</button>
+                <input type = 'hidden' value = "Chest" name = 'body_part'/>
+            </form>
+            <form method = 'POST' action = '/routineCreator/bodyPart'>
+                <button>Triceps</button>
+                <input type = 'hidden' value = "Triceps" name = 'body_part'/>
+            </form>
+            <form method = 'POST' action = '/routineCreator/bodyPart'>
+                <button>Back</button>
+                <input type = 'hidden' value = "Back" name = 'body_part'/>
+            </form>
+            <form method = 'POST' action = '/routineCreator/bodyPart'>
+                <button>Biceps</button>
+                <input type = 'hidden' value = "Biceps" name = 'body_part'/>
+            </form>
+            <form method = 'POST' action = '/routineCreator/bodyPart'>
+                <button>Legs</button>
+                <input type = 'hidden' value = "Legs" name = 'body_part'/>
+            </form>
+            <form method = 'POST' action = '/routineCreator/bodyPart'>
+                <button>Calfs</button>
+                <input type = 'hidden' value = "Calfs" name = 'body_part'/>
+            </form>
+            <form method = 'POST' action = '/routineCreator/bodyPart'>
+                <button>Quads</button>
+                <input type = 'hidden' value = "Quads" name = 'body_part'/>
+            </form>
+            <form method = 'POST' action = '/routineCreator/bodyPart'>
+                <button>Hamstring</button>
+                <input type = 'hidden' value = "Hamstring" name = 'body_part'/>
+            </form>
+            <form method = 'POST' action = '/routineCreator/bodyPart'>
+                <button>Abs</button>
+                <input type = 'hidden' value = "Abs" name = 'body_part'/>
+            </form>
+            <form method = 'POST' action = '/routineCreator/bodyPart'>
+                <button>Full Body</button>
+                <input type = 'hidden' value = "Full Body" name = 'body_part'/>
+            </form>
+            <a href = '/routineCreator'><button>All Exercises</button></a>
+            
+        </div>
+
+
+
+
+        {{! will show all of the exercises  }}
+        <div id = 'showExercises'>
+            <h2>Exercises</h2>
+                <ul>
+                {{#allExercises}}
+                    
+                    <div>
+                        <li>
+                            <label>Exercise: {{title}}</label><br>
+                            <label>Body Parts: {{body_part}}</label><br>
+                            <label>Equipment: {{equipment_need}}</label>
+                        </li>
+                    </div>
+
+                {{/allExercises}}
+                </ul>
+        </div>
+
+    </body>
+</html>
