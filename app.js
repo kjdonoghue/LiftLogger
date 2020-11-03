@@ -9,7 +9,7 @@ const connectionString =
 const db = pgp(connectionString)
 const mustacheExpress = require('mustache-express')
 const path = require('path')
-const VIEWS_PATH = path.join(__dirname, '../views' )
+const VIEWS_PATH = path.join(__dirname, './views' )
 // require('dotenv').config()
 /* CONSTANTS */
 
