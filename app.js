@@ -82,6 +82,7 @@ app.post("/login", (req, res) => {
                   if (result == true) {
                      if (req.session) {
                         req.session.username = username
+                        req.session.userId = element.user_id
                      }
                      res.redirect("/testPage") // this will need to change to the dashboard
                   } else {
@@ -115,7 +116,9 @@ function authenticate(req, res, next) {
 // just a test page to see if middleware works
 app.get("/testPage", authenticate, (req, res) => {
    let user = req.session.username
-   res.render("test", { user: user })
+   let uid = req.session.userId
+   res.render("test", { user: user, uid: uid})
+
 })
 /***************************** AUTHENTICATION STUFF ***************************** */
 /***************************** ROUTINE CREATOR STUFF ***************************** */
