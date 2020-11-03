@@ -1,4 +1,4 @@
-/* CONSTANTS */
+// /* CONSTANTS */
 const express = require("express")
 const app = express()
 const PORT = 3000
@@ -22,7 +22,7 @@ app.set("view engine", "mustache")
 
 /***************************** AUTHENTICATION STUFF ***************************** */
 // initalize the session
-app.use(express.urlencoded())
+// app.use(express.urlencoded())
 app.use(
    session({
       secret: "keyboard cat",
@@ -110,7 +110,9 @@ app.get("/testPage", authenticate, (req, res) => {
 })
 /***************************** AUTHENTICATION STUFF ***************************** */
 
-
+app.get('/helloWorld', (req, res) => {
+   res.send('Hello World')
+})
 
 /***************************** ROUTINE CREATOR STUFF ***************************** */
 
