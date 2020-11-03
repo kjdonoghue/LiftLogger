@@ -107,8 +107,8 @@ app.post("/login", (req, res) => {
    })
 })
 // logout function - destroys session and renders login screen
-app.get("/logout",(req,res) => {
-   req.session.destroy();
+app.get("/logout", (req, res) => {
+   req.session.destroy()
    res.render("login")
 })
 // authentication middleware
@@ -130,46 +130,39 @@ app.get("/testPage", authenticate, (req, res) => {
    res.render("test", { user: user })
 })
 /***************************** AUTHENTICATION STUFF ***************************** */
-
-app.get('/helloWorld', (req, res) => {
-   res.send('Hello World')
-})
-
 /***************************** ROUTINE CREATOR STUFF ***************************** */
 
-
 // posting the created routine to the wokouts table
-app.post('/creatingRoutine', (req, res) => {
-    const title = req.body.title
-    const exercises = req.body.exercises
+app.post("/creatingRoutine", (req, res) => {
+   const title = req.body.title
+   const exercises = req.body.exercises
 
-    db.none('INSERT INTO workouts (title, exercises) VALUES ($1, $2)', [title, exercises])
-        .then(() => {
-            res.redirect('/')
-        })
+   db.none("INSERT INTO workouts (title, exercises) VALUES ($1, $2)", [
+      title,
+      exercises,
+   ]).then(() => {
+      res.redirect("/")
+   })
 })
 
+app.post("/routineCreator/bodyPart", (req, res) => {
+   const body_part = req.body.body_part
 
-app.post('/routineCreator/bodyPart', (req, res) => {
-    const body_part = req.body.body_part
-
-
-
-    db.any('SELECT title, body_part, equipment_need FROM exercises WHERE body_part LIKE \'%$1#%\';', [body_part])
-        .then((filter) => {
-            res.render('routineCreator', { allExercises: filter })
-        })
-
- 
-
+   db.any(
+      "SELECT title, body_part, equipment_need FROM exercises WHERE body_part LIKE '%$1#%';",
+      [body_part]
+   ).then((filter) => {
+      res.render("routineCreator", { allExercises: filter })
+   })
 })
 
-// get request to pull the exercises 
-app.get('/routineCreator', (req, res) => {
-    db.any('SELECT title, body_part, equipment_need FROM exercises;')
-        .then(exercise => {
-            res.render('routineCreator', { allExercises: exercise })
-        })
+// get request to pull the exercises
+app.get("/routineCreator", (req, res) => {
+   db.any("SELECT title, body_part, equipment_need FROM exercises;").then(
+      (exercise) => {
+         res.render("routineCreator", { allExercises: exercise })
+      }
+   )
 })
 
 
