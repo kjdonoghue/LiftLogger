@@ -7,10 +7,15 @@ body {
 /* Dashoard Page */
 .statsContainer {
     display: flex;
+    flex-direction: column-reverse;
 }
 
 .statsDiv {
     text-align: center
+}
+
+.badge img {
+   width: 90%;
 }
 
 .toRoutinesButton {
@@ -68,7 +73,6 @@ body {
 }
 
 .workoutItem {
-    background-color: white;
     width: 95%;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -135,7 +139,18 @@ form {
 @media only screen and (min-width: 600px) {
 
     /* Dashboard and Routines Pages */
-        
+
+    .statsContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    .badge img {
+        max-width: 250px;
+     }
+      
     .lowercontainer h2 {
         align-self: end;
     }

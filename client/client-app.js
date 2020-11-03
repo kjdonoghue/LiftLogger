@@ -13,13 +13,13 @@ function myFunction() {
     let div = document.getElementById("badge")
     
     if (numWorkout <=1) {
-      var message = "one workout"
+      div.innerHTML = `<img src="images/sample-badge.png"/>`
     } else if (numWorkout >1) {
-      var message = "more than one workout"
+      div.innerHTML = `<img src="images/sample-badge.png"/>`
     } else {
       var message = "this isn't working"
     }
 
-      div.innerHTML = message
+     
     
   }

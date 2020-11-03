@@ -21,10 +21,10 @@ app.set('views', VIEWS_PATH)
 // extension will be .mustache
 app.set('view engine','mustache')
 
-// css stylesheet
+// static files
 app.use("/css", express.static("css"))
 app.use("/client", express.static("client"))
-
+app.use("/images", express.static("images"))
 
 app.get('/',(req,res) => {
     res.render('index')

@@ -6,23 +6,20 @@
         <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 
- {{#Dashboard}}
+    {{> header}}
+    {{#Dashboard}}
     {{#count}}
     <body onload='showBadge({{count}})'>
     {{/count}}
     
         <div class="container">
-        {{> header}}
+        
        
             <div class="upperContainer">
-                <h1> Welcome {{name}}</h1>
-                <form method="GET" action="/edit-account">
-                <div>
-                    <h2>Stats</h2>
-                    <button>Edit</button>
-                </div>
+                <h1>Dashboard</h1>
                 <div class="statsContainer">
                     <div class="statsDiv">
+                        <b>{{name}}'s Stats</b>
                         <p>height: {{height}}</p>
                         <p>weight: {{weight}}</p>
                         <p>age</p>
@@ -33,15 +30,18 @@
                     </div>
 
                     <div class="statsDiv">
-                        <div id="badge">                                     
-                        </div>
                         {{#count}}
                         <p>{{count}} Total Workouts</p>
-                         {{/count}}  
+                         {{/count}}
+                         <div id="badge" class="badge">                                 
+        
+                        {{^count}}
+                         <img src="images/newbie-badge.png"/>
+                        {{/count}}  
+                        </div>
                     </div>
                 </div>
-                </form>
-                
+                             
                 <div>
                 {{! is this a link or do we need to pass user id in a form?}}
                     <a href="routines">
@@ -76,7 +76,7 @@
                 {{/workouts}}
 
                 {{^workouts}}
-                    <p>There are no workouts</p>
+                    <p>There are no workouts in your history</p>
                 {{/workouts}}
                 </div>
 
