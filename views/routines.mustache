@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>WORKOUT APP | WORKOUTS</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="/css/styles.css"/>
+    </head>
+    {{> header}}
+     <body>
+      
+        <div class="container">
+
+            <div class="lowerContainer"> 
+                  <h2>Workout Routines:</h2>    
+                
+                <div class="routinesContainer">
+
+                  {{! Create a new routine}}                    
+                    <div class="workoutItem">
+                        <form method= "POST" action="">
+                            <button class="hiddenButton"> 
+                                <div class="workoutImage">
+                                    <img src="https://images.pexels.com/photos/221247/pexels-photo-221247.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+                                    <b class="displayTitle">Create a Custom Routine</b>
+                                </div>
+                                <div class="routineInfo">
+                                    <label><b>Custom Routine</b></label> 
+                                    <span>Includes: Create your own routine from available exercises</span>                           
+                                </div>
+                            </button>
+                        </form>         
+                    </div>
+
+                    {{! <h2>Select From Existing Routines</h2> }}
+                    {{#allRoutines}}
+
+                        
+                        <div class="workoutItem">
+                            <form method="POST" action="/select">
+                            <button class="hiddenButton"> 
+                                <div class="workoutImage">    
+                                    <img src="https://images.pexels.com/photos/2294354/pexels-photo-2294354.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+                                    <b class="displayTitle">{{title}}</b>
+                                </div>
+                                <div class="routineInfo">
+                                    <label><b>{{title}}</b></label> 
+                                    <span>Includes: {{exercises}}</span>
+                                    <input type="hidden" value={{workout_id}} name="workout_id"/>
+                                </div>
+                                <button formaction="/delete-routine">Delete</button>
+                            </button>
+                            </form>
+                        </div>
+                        
+
+                    {{/allRoutines}}
+                </div> 
+
+            </div>
+
+
+
+        </div>
+     <script src="client/client-app.js"></script>
+    </body>
+</html>
