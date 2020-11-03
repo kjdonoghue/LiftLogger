@@ -4,12 +4,13 @@ const app = express()
 const PORT = 3000
 const pgp = require('pg-promise')()
 var bcrypt = require('bcryptjs');
-require('dotenv').config()
-const connectionString = process.env.CONNECTION_STRING
+const connectionString =
+"postgres://skvpwhin:lXgkojz2TanCel7pEUUSDtGg-bEKm4NW@lallah.db.elephantsql.com:5432/skvpwhin"
 const db = pgp(connectionString)
 const mustacheExpress = require('mustache-express')
 const path = require('path')
 const VIEWS_PATH = path.join(__dirname, '../views' )
+// require('dotenv').config()
 /* CONSTANTS */
 
 
@@ -33,7 +34,7 @@ app.get('/',(req,res) => {
 /* Dashboard Page */
 /* Display Dashboard Page */
 app.get("/dashboard", async (req, res) => {
-    let id = 6
+    let id = 1
     
         let userHistory = await db.any('SELECT user_id FROM histories')   
 

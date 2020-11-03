@@ -12,14 +12,14 @@ function myFunction() {
   async function showBadge(numWorkout) {
     let div = document.getElementById("badge")
     
-    if (numWorkout <=1) {
-      div.innerHTML = `<img src="images/sample-badge.png"/>`
-    } else if (numWorkout >1) {
-      div.innerHTML = `<img src="images/sample-badge.png"/>`
+    if (numWorkout >=50) {
+      div.innerHTML = `<img src="images/ten-badge.png"/>`
+    } else if (numWorkout >=25) {
+      div.innerHTML = `<img src="images/ten-badge.png"/>`
+    } else if (numWorkout >=10) {
+      div.innerHTML = `<img src="images/ten-badge.png"/>`
     } else {
-      var message = "this isn't working"
+      div.innerHTML = `<img src="images/ten-badge.png"/>`
     }
-
-     
     
   }
