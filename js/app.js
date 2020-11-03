@@ -25,7 +25,7 @@ app.set("view engine", "mustache")
 app.use(express.urlencoded())
 app.use(
    session({
-      secret: "keyboard cat",
+      secret: "keyboard cat", // this needs to be fixed
       resave: false,
       saveUnitialized: true,
    })
@@ -36,10 +36,12 @@ app.get("/register", (req, res) => {
 })
 // create user
 app.post("/register", (req, res) => {
+   // user given info
    let username = req.body.username
    let password = req.body.password
    let height = req.body.height
    let weight = req.body.weight
+   // grabs all usernames, if given user exists in db, it restarts page with error message
    db.any("SELECT username FROM users").then((users) => {
       users.forEach((element) => {
          if (username != element.username) {
@@ -65,13 +67,16 @@ app.post("/register", (req, res) => {
 app.get("/login", (req, res) => {
    res.render("login")
 })
-// log in function
+// log in function, takes user data and tries to match it with username and passwords in the db
 app.post("/login", (req, res) => {
+   // user enters login info
    let username = req.body.username
    let password = req.body.password
+   // grabs user info from db, loops through and compares to given
    db.any("SELECT username, password, user_id FROM users").then((users) => {
       users.forEach((element) => {
          if (username == element.username) {
+            // uses bcrypt's compare function. result returns true if passwords match
             loggedIn = bcrypt
                .compare(password, element.password)
                .then(function (result) {
@@ -89,6 +94,11 @@ app.post("/login", (req, res) => {
          }
       })
    })
+})
+// logout function - destroys session and renders login screen
+app.get("/logout",(req,res) => {
+   req.session.destroy();
+   res.render("login")
 })
 // authentication middleware
 function authenticate(req, res, next) {
