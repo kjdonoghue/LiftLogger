@@ -33,7 +33,7 @@ app.get('/',(req,res) => {
 /* Dashboard Page */
 /* Display Dashboard Page */
 app.get("/dashboard", async (req, res) => {
-    let id = 1
+    let id = 6
     
         let userHistory = await db.any('SELECT user_id FROM histories')   
 
@@ -44,14 +44,14 @@ app.get("/dashboard", async (req, res) => {
 
 
         if (found) {
-            let result = await db.any('SELECT users.user_id, height, weight, workout_name, exercises FROM users JOIN histories ON users.user_id = histories.user_id WHERE users.user_id = $1 ORDER BY date_completed DESC LIMIT 7', [id])
+            let result = await db.any('SELECT users.user_id, username, height, weight, workout_name, exercises FROM users JOIN histories ON users.user_id = histories.user_id WHERE users.user_id = $1 ORDER BY date_completed DESC LIMIT 7', [id])
             let count = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
             user_dashboard = getUserDetails(result, count)
             res.render('dashboard', {Dashboard: user_dashboard})
             
         } else {
             console.log("no match")
-            let result = await db.any('SELECT users.user_id, height, weight FROM users WHERE user_id=$1', [id])
+            let result = await db.any('SELECT users.user_id, username, height, weight FROM users WHERE user_id=$1', [id])
             res.render('dashboard', {Dashboard: result})
         }          
     
@@ -64,7 +64,7 @@ function getUserDetails(result, count) {
 
     result.forEach((item) => {
         if (user_dashboard.length == 0)  {
-            let information = {user_id: item.user_id, weight: item.weight, height: item.height, count: count, workouts: [{title: item.workout_name, exercises: item.exercises}]}
+            let information = {user_id: item.user_id, username: item.username, weight: item.weight, height: item.height, count: count, workouts: [{title: item.workout_name, exercises: item.exercises}]}
             
             user_dashboard.push(information)
             
