@@ -1,0 +1,49 @@
+<html>
+
+    <head>
+
+    </head>
+
+    <body>
+        <h1>Blog using SQL</h1>
+        <h2>New Post:</h2>
+        
+        <form method="POST" action="/blog/create-post">
+            <input type="text" placeholder="title" name="title" />
+            <input type="textarea" placeholder="write your post here" name="blog_post" />
+            <button>Submit</button>    
+
+        </form>
+
+        <h2>Previous Posts</h2>
+        <div>
+            {{#allBlogs}}
+                <form method="POST">
+            
+                    <div>
+                        {{title}}
+                    </div>
+
+                    <div>
+                        {{body}}
+                    </div>
+
+                    <div>
+                        <input type='hidden' value={{id}} name='post_id' />
+                        <button formaction="/blog/{{post_id}}">Get Blog Details</button>
+                        <button formaction="/blog/delete-post">Delete Blog Post</button>
+                    </div>
+
+                    <div>
+                        <input type="textarea" placeholder="Write a comment" name="comment_body"/>
+                        <button formaction="/blog/submit-comment">Submit Comment</button>
+                    </div>
+
+                </form>
+            {{/allBlogs}}
+
+        </div>
+
+    </body>
+
+</html>
