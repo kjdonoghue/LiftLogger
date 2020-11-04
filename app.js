@@ -266,24 +266,16 @@ app.post("/delete-routine", (req, res) => {
 app.get("/:workout_id", (req, res) => {
    let workout_id = req.params.workout_id
    
-   db.any('SELECT workout_id, title, exercises, image FROM workouts WHERE workout_id= $1', [workout_id])
+   db.any('SELECT workout_id, title, exercises FROM workouts WHERE workout_id= $1', [workout_id])
    .then(workout => {
-      console.log(workout)
-   let exerciseList = workout.map((item) => {
-      return item.exercises.split(",")
+      
+      let exerciseList = workout.map((item) => {
+      item.exercises = item.exercises.split(",")
+      return item
    })
+   console.log(exerciseList)
 
-   let exercise = exerciseList.map((item) => {
-      console.log(item)
-      return {item}
-
-   })
-
-   
-  
-   
-   console.log(exercise)
-   res.render('workout', {selectedWorkout: workout, newExerciseList: exercise})
+   res.render('workout', {exerciseList: exerciseList})
     })
 })
 

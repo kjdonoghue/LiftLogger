@@ -8,21 +8,19 @@
 
    <body>
      
-     {{#selectedWorkout}}
-       
-        {{title}}
+        
+     {{#exerciseList}}
 
 
-     {{/selectedWorkout}}
-
-   
-     {{#newExerciseList}}
-
-
-     {{item}}
-
-
-     {{/newExerciseList}}
+     {{title}}
+     <ul>   
+        {{#exercises}}
+            <li>
+                {{.}}
+            </li>
+        {{/exercises}}
+    </ul>
+     {{/exerciseList}}
   
 
 
