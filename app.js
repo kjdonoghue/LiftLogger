@@ -81,7 +81,7 @@ app.post("/guest", (req, res) => {
    let username = "johndoe"
    let password = "password"
    let userId = 30
-   if(req.session) {
+   if (req.session) {
       // stores info in session
       req.session.username = username
       req.session.password = password
@@ -89,7 +89,6 @@ app.post("/guest", (req, res) => {
    }
    res.redirect("/dashboard") // this will need to change to the dashboard
 })
-
 // show the login page
 app.get("/login", (req, res) => {
    res.render("login")
