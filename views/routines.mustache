@@ -36,7 +36,7 @@
 
                         
                         <div class="workoutItem">
-                            <form method="POST" action="/select">
+                            <form method="GET" action="/{{workout_id}}">
                             <button class="hiddenButton"> 
                                 <div class="workoutImage">    
                                     <img src="https://images.pexels.com/photos/2294354/pexels-photo-2294354.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="routineInfo">
                                     <label><b>{{title}}</b></label> 
-                                    <span>Includes: {{exercises}}</span>
+                                    <span>Includes: {{exercises}}</span>                
                                     <input type="hidden" value={{workout_id}} name="workout_id"/>
                                 </div>
                                 <button formaction="/delete-routine">Delete</button>

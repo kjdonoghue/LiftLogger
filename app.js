@@ -138,13 +138,18 @@ function authenticate(req, res, next) {
 // posting the created routine to the wokouts table
 app.post("/creatingRoutine", (req, res) => {
    const title = req.body.title
-   const exercises = req.body.exercises
-
-   db.none("INSERT INTO workouts (title, exercises) VALUES ($1, $2)", [
+   const exercises = req.body.exercises.join(",")
+   const image = getRandomImage()
+   // const user_id = req.session.userId
+   const user_id = 1
+   
+   db.none("INSERT INTO workouts (title, exercises, image, user_id) VALUES ($1, $2, $3, $4)", [
       title,
       exercises,
+      image,
+      user_id
    ]).then(() => {
-      res.redirect("/")
+      res.redirect("/routines")
    })
 })
 
@@ -232,6 +237,7 @@ app.get("/routines", (req, res) => {
     })
 })
 
+
 app.post("/delete-routine", (req, res) => {
     let workout_id = req.body.workout_id
 
@@ -245,15 +251,40 @@ app.post("/delete-routine", (req, res) => {
 /***************************** DASHBOARD AND ROUTINES STUFF ***************************** */
 
 /* Go from Dashboard or Routines to Workout page after selecting workout*/
-app.post("/select", (req, res) => {
-    let workout_id = req.body.workout_id
+// app.post("/select", (req, res) => {
+//     let workout_id = req.body.workout_id
     
-    db.any('SELECT workout_id, title, exercises FROM workouts WHERE workout_id= $1', [workout_id])
-    .then(workout => {
-      
-        res.render('workout', {selectedWorkout: workout})
-    })
+//     db.any('SELECT workout_id, title, exercises, image FROM workouts WHERE workout_id= $1', [workout_id])
+//     .then(workout => {
 
+//          console.log(workout)
+//         res.render('workout', {selectedWorkout: workout})
+//     })
+
+// })
+
+app.get("/:workout_id", (req, res) => {
+   let workout_id = req.params.workout_id
+   
+   db.any('SELECT workout_id, title, exercises, image FROM workouts WHERE workout_id= $1', [workout_id])
+   .then(workout => {
+      console.log(workout)
+   let exerciseList = workout.map((item) => {
+      return item.exercises.split(",")
+   })
+
+   let exercise = exerciseList.map((item) => {
+      console.log(item)
+      return {item}
+
+   })
+
+   
+  
+   
+   console.log(exercise)
+   res.render('workout', {selectedWorkout: workout, newExerciseList: exercise})
+    })
 })
 
 /***************************** DASHBOARD AND ROUTINES STUFF END ***************************** */
@@ -334,6 +365,22 @@ function getDate(days) {
 // console.log(getDate(7))
 // console.log(getDate(30))
 /****************** CALC WORKOUT COUNTS FOR WEEK/MONTH FOR DASH END ********************** */
+
+/****************** WORKOUT PAGE ********************** */
+
+// app.get("/workout", async (req, res) => {
+//    // let id = req.session.userId
+//    let title = req.body.title
+//    console.log(title)
+   
+
+//    // let workout = db.any(SELECT )
+
+//    res.render("workout")
+
+// })
+
+
 
 app.listen(PORT, () => {
    console.log('Server is running...')
