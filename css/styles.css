@@ -374,3 +374,16 @@ form {
 .imageThumbnail {
     width: 150px;
 }
+
+/* login */
+#login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#login-form {
+    display: flex;
+    flex-direction: column;
+}
+/* login end */
