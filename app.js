@@ -75,7 +75,20 @@ app.post("/register", (req, res) => {
       }
    )
 })
-
+// guest login
+app.post("/guest", (req, res) => {
+   // guest user info
+   let username = "johndoe"
+   let password = "password"
+   let userId = 30
+   if(req.session) {
+      // stores info in session
+      req.session.username = username
+      req.session.password = password
+      req.session.userId = userId
+   }
+   res.redirect("/dashboard") // this will need to change to the dashboard
+})
 
 // show the login page
 app.get("/login", (req, res) => {
