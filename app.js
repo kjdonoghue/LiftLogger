@@ -53,19 +53,10 @@ app.post("/register", (req, res) => {
    let height = req.body.height
    let weight = req.body.weight
    // grabs all usernames, if given user exists in db, it restarts page with error message
-   db.any("SELECT username FROM users").then((users) => {
+   db.any("SELECT username FROM users WHERE username=$1",username).then((users) => {
       users.forEach((element) => {
          if (username != element.username) {
-            bcrypt.genSalt(10, function (err, salt) {
-               bcrypt.hash(password, salt, function (err, hash) {
-                  db.none(
-                     "INSERT INTO users(username, password, height, weight) VALUES($1,$2,$3,$4)",
-                     [username, hash, height, weight]
-                  ).then(() => {
-                     res.redirect("/login")
-                  })
-               })
-            })
+            
          } else {
             res.render("register", {
                message: "Username already exists",
@@ -74,6 +65,16 @@ app.post("/register", (req, res) => {
       })
    })
 })
+/* bcrypt.genSalt(10, function (err, salt) {
+   bcrypt.hash(password, salt, function (err, hash) {
+      db.none(
+         "INSERT INTO users(username, password, height, weight) VALUES($1,$2,$3,$4)",
+         [username, hash, height, weight]
+      ).then(() => {
+         res.redirect("/login")
+      })
+   })
+}) */
 // show the login page
 app.get("/login", (req, res) => {
    res.render("login")
