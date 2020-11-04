@@ -259,3 +259,105 @@ form {
     }
 
 }
+
+/* ROUTINE CSS */
+
+#routineBody {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #24252a;
+}
+
+#routineBody li, a {
+    font-weight: 500;
+    font-size: 16px;
+    color: #edf0f1;
+    text-decoration: none;
+}
+
+#routineContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+.exerciseLabel {
+    text-align: center;
+    color: #edf0f1;
+}
+
+.routineHeading {
+    text-align: center;
+    color: #edf0f1;
+    padding-top: 10px;
+    margin-bottom: 0;
+}
+
+.ddTest {
+    display: none;
+    z-index: 1;
+    list-style: none;
+}
+
+.ddTest li {
+    color: white;
+}
+
+.ddTest li:hover {
+    background-color: #0088a9;
+}
+
+.exerciseTitleA {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    list-style: none;
+}
+
+.exercisesA {
+    list-style: none;
+    margin-bottom: 50px;
+    margin-right: 30px;
+}
+
+.exercisesA:hover .ddTest {
+    display: inline;
+}
+
+.exercisesA:hover .exerciseTitleA {
+    background-color: #0088a9;
+}
+
+.exercisesA li {
+    padding: 0px 5px;
+    margin-bottom: 5px;
+}
+
+.exercisesA li a {
+    transition: all 0.3s ease 0s;
+}
+
+.exercisesA li a:hover {
+    background-color: (0, 136, 169, 1);
+}
+
+.routineButton {
+    padding: 9px 25px;
+    background-color: rgba(0, 136, 169, 1);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+    opacity: 2;
+}
+
+.routineButton:hover{
+    background-color: rgba(0, 136, 169, 0.8);
+}
+
+
+
+/* ROUTINE CSS */
