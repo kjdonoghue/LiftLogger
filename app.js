@@ -175,9 +175,8 @@ app.get("/routineCreator", (req, res) => {
 /***************************** DASHBOARD STUFF ***************************** */
 /* Display Dashboard Page */
 app.get("/dashboard", authenticate, async (req, res) => {
-   // let id = req.session.userId
-   let id =1
-           
+   let id = req.session.userId
+              
         let userHistory = await db.any('SELECT user_id FROM histories')   
 
         let found = userHistory.find(user => {
