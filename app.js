@@ -31,6 +31,10 @@ app.use("/client", express.static("client"))
 app.use("/images", express.static("images"))
 /* STATIC FILES END*/
 
+app.get("/", (req,res) => {
+   res.render("splash")
+})
+
 /***************************** AUTHENTICATION STUFF ***************************** */
 // initalize the session
 app.use(

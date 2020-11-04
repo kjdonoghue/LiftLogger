@@ -375,7 +375,46 @@ form {
     width: 150px;
 }
 
-/* login */
+/* auth */
+#splash-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 60%;
+}
+#splash-logo {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 20%;
+}
+#splash-welcome {
+    display: flex;
+    width: 85%;
+    flex-direction: column;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 100%;
+    font-size: larger;
+}
+#splash-buttons {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20%;
+}
+#logInBtn {
+    font-size: larger;
+    width: 100px;
+    height: 300%;
+    margin-left: 10%;
+}
+#signUpBtn {
+    font-size: larger;
+    width: 100px;
+    height: 300%;
+    margin-right: 10%;
+}
 #login-container {
     display: flex;
     flex-direction: column;
@@ -386,4 +425,4 @@ form {
     display: flex;
     flex-direction: column;
 }
-/* login end */
+/* auth end */
