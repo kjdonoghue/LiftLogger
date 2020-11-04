@@ -1,4 +1,4 @@
-// function for opening and closing hamburger menu
+/***************************** NAV MENU ***************************** */
 function myFunction() {
     let menuLinks = document.getElementById("menuLinks");
     if (menuLinks.style.display === "block") {
@@ -7,19 +7,32 @@ function myFunction() {
       menuLinks.style.display = "block";
     }
   }
-
+  /***************************** WORKOUT BADGES ***************************** */
 
   async function showBadge(numWorkout) {
     let div = document.getElementById("badge")
     
-    if (numWorkout >=50) {
-      div.innerHTML = `<img src="images/ten-badge.png"/>`
+    if (numWorkout >= 100) {
+      div.innerHTML = `<img src="images/hundred-badge.png"/>`
+    } else if (numWorkout >=50) {
+      div.innerHTML = `<img src="images/fifty-badge.png"/>`
     } else if (numWorkout >=25) {
-      div.innerHTML = `<img src="images/ten-badge.png"/>`
+      div.innerHTML = `<img src="images/twenty-five-badge.png"/>`
     } else if (numWorkout >=10) {
       div.innerHTML = `<img src="images/ten-badge.png"/>`
     } else {
-      div.innerHTML = `<img src="images/ten-badge.png"/>`
+      div.innerHTML = `<img src="images/newbie-badge.png"/>`
     }
     
   }
+/***************************** EDIT ACCOUNT ***************************** */
+  function editAccount(field) {
+    
+    let div = document.getElementById(field)
+    div.innerHTML = `<form method="POST" action="/edit-height"> <input type="text" placeholder="enter updated ${field}" name='${field}'></input>
+    <button> Submit </button>`
+
+  }
+
+
+  

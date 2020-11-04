@@ -96,7 +96,7 @@ app.post("/login", (req, res) => {
                         req.session.username = username
                         req.session.userId = element.user_id
                      }
-                     res.redirect("/testPage") // this will need to change to the dashboard
+                     res.redirect("/dashboard") // this will need to change to the dashboard
                   } else {
                      res.render("login", {
                         message: "Username or password is incorrect",
@@ -126,12 +126,12 @@ function authenticate(req, res, next) {
    }
 }
 // just a test page to see if middleware works
-app.get("/testPage", authenticate, (req, res) => {
-   let user = req.session.username
-   let uid = req.session.userId
-   res.render("test", { user: user, uid: uid})
+// app.get("/testPage", authenticate, (req, res) => {
+//    let user = req.session.username
+//    let uid = req.session.userId
+//    res.render("test", { user: user, uid: uid})
 
-})
+// })
 /***************************** AUTHENTICATION STUFF ***************************** */
 /***************************** ROUTINE CREATOR STUFF ***************************** */
 
@@ -174,9 +174,9 @@ app.get("/routineCreator", (req, res) => {
 
 /***************************** DASHBOARD STUFF ***************************** */
 /* Display Dashboard Page */
-app.get("/dashboard", async (req, res) => {
-    let id = 1
-    
+app.get("/dashboard", authenticate, async (req, res) => {
+   let id = req.session.userId
+              
         let userHistory = await db.any('SELECT user_id FROM histories')   
 
         let found = userHistory.find(user => {
@@ -185,14 +185,16 @@ app.get("/dashboard", async (req, res) => {
 
         if (found) {
             let result = await db.any('SELECT users.user_id, username, height, weight, workout_name, exercises FROM users JOIN histories ON users.user_id = histories.user_id WHERE users.user_id = $1 ORDER BY date_completed DESC LIMIT 7', [id])
-            let count = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
-            
+            // let count = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
+            let count = await getTotal(id)
+            let week = await getTotalByDate(id, 7)
+            let month = await getTotalByDate(id, 30)
             user_dashboard = getUserDetails(result, count)
 
             res.render('dashboard', {Dashboard: user_dashboard})
             
         } else {
-            let result = await db.any('SELECT users.user_id, username, height, weight FROM users WHERE user_id=$1', [id])
+            let result = await db.any('SELECT users.user_id, username, height, weight, age, goal FROM users WHERE user_id=$1', [id])
             res.render('dashboard', {Dashboard: result})
         }          
     
@@ -224,7 +226,7 @@ function getUserDetails(result, count) {
 /* Routines Page */
 /* Display All Routines */
 app.get("/routines", (req, res) => {
-    db.any('SELECT workout_id, title, exercises FROM workouts')
+   db.any('SELECT workout_id, title, exercises FROM workouts')
     .then(routines => {
         res.render('routines', {allRoutines: routines})
     })
@@ -255,6 +257,83 @@ app.post("/select", (req, res) => {
 })
 
 /***************************** DASHBOARD AND ROUTINES STUFF END ***************************** */
+
+/***************************** ACCOUNT STUFF ***************************** */
+
+app.get("/account", async (req, res) => {
+   let id = req.session.userId
+   
+   let accountInfo = await db.any('SELECT username, password, weight, height, age, goal FROM users where user_id =$1', [id])
+
+   res.render("account", {Account: accountInfo})
+})
+
+
+app.post("/edit-height", authenticate, (res, req) => {
+   // let height = req.body.height
+   // let id = req.session.userId
+   console.log(id)
+   
+   // db.none('UPDATE users SET height = $1 WHERE user_id=$2', [height, id])
+
+   res.redirect("/account")
+
+})
+
+
+/***************************** ACCOUNT STUFF END ***************************** */
+/***************************** RANDOM IMAGE GENERATOR ***************************** */
+
+var randomImage = new Array();
+
+randomImage[0] = "/images/barbell.jpg";
+randomImage[1] = "/images/colorful-kettle.jpg";
+randomImage[2] = "/images/jumprope.jpg";
+randomImage[3] = "/images/plank.jpg";
+randomImage[4] = "/images/outdoors.jpg";
+randomImage[5] = "/images/kettlebells.jpg";
+randomImage[6] = "/images/lift.jpg";
+randomImage[6] = "/images/pushup.jpg";
+
+function getRandomImage() { 
+var number = Math.floor(Math.random()*randomImage.length);
+return '<img src="'+randomImage[number]+'" />'
+}
+
+// let image = getRandomImage()
+// console.log(image)
+
+/***************************** RANDOM IMAGE GENERATOR END ***************************** */
+/******************** CALC WORKOUT COUNTS FOR WEEK/MONTH FOR DASH ********************* */
+
+// let date = new Date() need to put in history
+
+async function getTotal(id) {
+   let count = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
+   
+      return count
+      
+}
+
+async function getTotalByDate(id, days) {
+   let date = getDate(days)
+   // console.log(date)
+   let countByDate = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
+   return countByDate
+      
+}
+
+function getDate(days) {
+   var dateObj = new Date(); 
+                           
+   dateObj.setDate(dateObj.getDate() - days)
+
+   return dateObj
+}
+
+// console.log(getDate(7))
+// console.log(getDate(30))
+/****************** CALC WORKOUT COUNTS FOR WEEK/MONTH FOR DASH END ********************** */
 
 app.listen(PORT, () => {
    console.log('Server is running...')

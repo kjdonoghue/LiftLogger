@@ -22,10 +22,10 @@
                         <b>{{username}}'s Stats</b>
                         <p>height: {{height}}</p>
                         <p>weight: {{weight}}</p>
-                        <p>age</p>
+                        <p>age: {{age}}</p>
 
-                        <p>Weekly Goal: X of {{goal}}</p>
-                        <p>Monthly Goal: X of {{goal}}</p>
+                        <p>Weekly Workout Goal: {{#count}} {{count}} {{/count}} {{^count}} 0 {{/count}} of {{goal}}</p>
+                        <p>Monthly Goal: {{#count}} {{count}} {{/count}} {{^count}} 0 {{/count}} of {{goal}}</p>
                                                  
                     </div>
 
@@ -36,7 +36,7 @@
                          <div id="badge" class="badge">                                 
         
                         {{^count}}
-                         <img src="images/newbie-badge.png"/>
+                         <img src="images/newbie-badge.png"/>            
                         {{/count}}  
                         </div>
                     </div>
@@ -83,7 +83,9 @@
             </div>
             
 
-        {{/Dashboard}}   
+        {{/Dashboard}}  
+        
+        
         </div>
     
     <script src="client/client-app.js"></script>

@@ -361,3 +361,16 @@ form {
 
 
 /* ROUTINE CSS */
+/* WORKOUT PHOTO CSS */
+.workoutImage img{
+    width: 250px;
+}
+
+.thumbnails {
+    display: flex;
+    
+}
+
+.imageThumbnail {
+    width: 150px;
+}
