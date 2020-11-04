@@ -9,19 +9,18 @@ const connectionString =
 const db = pgp(connectionString)
 const mustacheExpress = require("mustache-express")
 const session = require("express-session")
-const path = require('path')
-const VIEWS_PATH = path.join(__dirname, './views' )
+const path = require("path")
+const VIEWS_PATH = path.join(__dirname, "./views")
 // require('dotenv').config()
 /* CONSTANTS END*/
-
 
 /* CREATING VIEWS */
 app.use(express.urlencoded())
 // app.engine("mustache", mustacheExpress())
-app.engine('mustache',mustacheExpress(VIEWS_PATH + '/partials', '.mustache'))
+app.engine("mustache", mustacheExpress(VIEWS_PATH + "/partials", ".mustache"))
 // the pages are located in views directory
 // app.set("views", "./views")
-app.set('views', VIEWS_PATH)
+app.set("views", VIEWS_PATH)
 // extension will be .mustache
 app.set("view engine", "mustache")
 /* CREATING VIEWS END*/
@@ -52,29 +51,32 @@ app.post("/register", (req, res) => {
    let password = req.body.password
    let height = req.body.height
    let weight = req.body.weight
-   // grabs all usernames, if given user exists in db, it restarts page with error message
-   db.any("SELECT username FROM users WHERE username=$1",username).then((users) => {
-      users.forEach((element) => {
-         if (username != element.username) {
-            
-         } else {
+   // looks to see if given username exists in the database
+   db.any("SELECT username FROM users WHERE username=$1", username).then(
+      (users) => {
+         // if username is inside db
+         if (users.length > 0) {
             res.render("register", {
                message: "Username already exists",
             })
+         } else {
+            // create user row
+            bcrypt.genSalt(10, function (err, salt) {
+               bcrypt.hash(password, salt, function (err, hash) {
+                  db.none(
+                     "INSERT INTO users(username, password, height, weight) VALUES($1,$2,$3,$4)",
+                     [username, hash, height, weight]
+                  ).then(() => {
+                     res.redirect("/login")
+                  })
+               })
+            })
          }
-      })
-   })
+      }
+   )
 })
-/* bcrypt.genSalt(10, function (err, salt) {
-   bcrypt.hash(password, salt, function (err, hash) {
-      db.none(
-         "INSERT INTO users(username, password, height, weight) VALUES($1,$2,$3,$4)",
-         [username, hash, height, weight]
-      ).then(() => {
-         res.redirect("/login")
-      })
-   })
-}) */
+
+
 // show the login page
 app.get("/login", (req, res) => {
    res.render("login")
@@ -127,12 +129,11 @@ function authenticate(req, res, next) {
    }
 }
 // just a test page to see if middleware works
-// app.get("/testPage", authenticate, (req, res) => {
-//    let user = req.session.username
-//    let uid = req.session.userId
-//    res.render("test", { user: user, uid: uid})
-
-// })
+app.get("/testPage", authenticate, (req, res) => {
+   let user = req.session.username
+   let uid = req.session.userId
+   res.render("test", { user: user, uid: uid })
+})
 /***************************** AUTHENTICATION STUFF ***************************** */
 /***************************** ROUTINE CREATOR STUFF ***************************** */
 
@@ -169,92 +170,104 @@ app.get("/routineCreator", (req, res) => {
    )
 })
 
-
 /***************************** ROUTINE CREATOR STUFF END ***************************** */
-
 
 /***************************** DASHBOARD STUFF ***************************** */
 /* Display Dashboard Page */
 app.get("/dashboard", authenticate, async (req, res) => {
    let id = req.session.userId
-              
-        let userHistory = await db.any('SELECT user_id FROM histories')   
 
-        let found = userHistory.find(user => {
-            return user.user_id == id
-        })       
+   let userHistory = await db.any("SELECT user_id FROM histories")
 
-        if (found) {
-            let result = await db.any('SELECT users.user_id, username, height, weight, workout_name, exercises FROM users JOIN histories ON users.user_id = histories.user_id WHERE users.user_id = $1 ORDER BY date_completed DESC LIMIT 7', [id])
-            // let count = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
-            let count = await getTotal(id)
-            let week = await getTotalByDate(id, 7)
-            let month = await getTotalByDate(id, 30)
-            user_dashboard = getUserDetails(result, count)
+   let found = userHistory.find((user) => {
+      return user.user_id == id
+   })
 
-            res.render('dashboard', {Dashboard: user_dashboard})
-            
-        } else {
-            let result = await db.any('SELECT users.user_id, username, height, weight, age, goal FROM users WHERE user_id=$1', [id])
-            res.render('dashboard', {Dashboard: result})
-        }          
-    
+   if (found) {
+      let result = await db.any(
+         "SELECT users.user_id, username, height, weight, workout_name, exercises FROM users JOIN histories ON users.user_id = histories.user_id WHERE users.user_id = $1 ORDER BY date_completed DESC LIMIT 7",
+         [id]
+      )
+      // let count = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
+      let count = await getTotal(id)
+      let week = await getTotalByDate(id, 7)
+      let month = await getTotalByDate(id, 30)
+      user_dashboard = getUserDetails(result, count)
+
+      res.render("dashboard", { Dashboard: user_dashboard })
+   } else {
+      let result = await db.any(
+         "SELECT users.user_id, username, height, weight, age, goal FROM users WHERE user_id=$1",
+         [id]
+      )
+      res.render("dashboard", { Dashboard: result })
+   }
 })
 
 //function for getting dashboard info with workouts
 function getUserDetails(result, count) {
-    
-    user_dashboard = []
+   user_dashboard = []
 
-    result.forEach((item) => {
-        if (user_dashboard.length == 0)  {
-            let information = {user_id: item.user_id, username: item.username, weight: item.weight, height: item.height, count: count, workouts: [{title: item.workout_name, exercises: item.exercises}]}
-            
-            user_dashboard.push(information)
-            
-        } else {
-            let information = user_dashboard.find(information => information.user_id == item.user_id)
-            if (information) {
-                information.workouts.push({title: item.workout_name, exercises: item.exercises}) 
-            } 
-        }
-        
-    })
-    return user_dashboard
+   result.forEach((item) => {
+      if (user_dashboard.length == 0) {
+         let information = {
+            user_id: item.user_id,
+            username: item.username,
+            weight: item.weight,
+            height: item.height,
+            count: count,
+            workouts: [{ title: item.workout_name, exercises: item.exercises }],
+         }
+
+         user_dashboard.push(information)
+      } else {
+         let information = user_dashboard.find(
+            (information) => information.user_id == item.user_id
+         )
+         if (information) {
+            information.workouts.push({
+               title: item.workout_name,
+               exercises: item.exercises,
+            })
+         }
+      }
+   })
+   return user_dashboard
 }
 /***************************** ROUTINES STUFF ***************************** */
 
 /* Routines Page */
 /* Display All Routines */
 app.get("/routines", (req, res) => {
-   db.any('SELECT workout_id, title, exercises FROM workouts')
-    .then(routines => {
-        res.render('routines', {allRoutines: routines})
-    })
+   db.any("SELECT workout_id, title, exercises FROM workouts").then(
+      (routines) => {
+         res.render("routines", { allRoutines: routines })
+      }
+   )
 })
 
 app.post("/delete-routine", (req, res) => {
-    let workout_id = req.body.workout_id
+   let workout_id = req.body.workout_id
 
-    db.none('DELETE FROM workouts WHERE workout_id=$1', [workout_id])
-    .then(() => {
-        res.redirect('routines')
-    })
-   
+   db.none("DELETE FROM workouts WHERE workout_id=$1", [workout_id]).then(
+      () => {
+         res.redirect("routines")
+      }
+   )
 })
 
 /***************************** DASHBOARD AND ROUTINES STUFF ***************************** */
 
 /* Go from Dashboard or Routines to Workout page after selecting workout*/
 app.post("/select", (req, res) => {
-    let workout_id = req.body.workout_id
-    
-    db.any('SELECT workout_id, title, exercises FROM workouts WHERE workout_id= $1', [workout_id])
-    .then(workout => {
-      
-        res.render('workout', {selectedWorkout: workout})
-    })
+   let workout_id = req.body.workout_id
 
+   db.any(
+      "SELECT workout_id, title, exercises FROM workouts WHERE workout_id= $1",
+      [workout_id]
+   ).then((workout) => {
+      res.render("workout", { selectedWorkout: workout })
+   })
 })
 
 /***************************** DASHBOARD AND ROUTINES STUFF END ***************************** */
@@ -263,42 +276,42 @@ app.post("/select", (req, res) => {
 
 app.get("/account", async (req, res) => {
    let id = req.session.userId
-   
-   let accountInfo = await db.any('SELECT username, password, weight, height, age, goal FROM users where user_id =$1', [id])
 
-   res.render("account", {Account: accountInfo})
+   let accountInfo = await db.any(
+      "SELECT username, password, weight, height, age, goal FROM users where user_id =$1",
+      [id]
+   )
+
+   res.render("account", { Account: accountInfo })
 })
-
 
 app.post("/edit-height", authenticate, (res, req) => {
    // let height = req.body.height
    // let id = req.session.userId
    console.log(id)
-   
+
    // db.none('UPDATE users SET height = $1 WHERE user_id=$2', [height, id])
 
    res.redirect("/account")
-
 })
-
 
 /***************************** ACCOUNT STUFF END ***************************** */
 /***************************** RANDOM IMAGE GENERATOR ***************************** */
 
-var randomImage = new Array();
+var randomImage = new Array()
 
-randomImage[0] = "/images/barbell.jpg";
-randomImage[1] = "/images/colorful-kettle.jpg";
-randomImage[2] = "/images/jumprope.jpg";
-randomImage[3] = "/images/plank.jpg";
-randomImage[4] = "/images/outdoors.jpg";
-randomImage[5] = "/images/kettlebells.jpg";
-randomImage[6] = "/images/lift.jpg";
-randomImage[6] = "/images/pushup.jpg";
+randomImage[0] = "/images/barbell.jpg"
+randomImage[1] = "/images/colorful-kettle.jpg"
+randomImage[2] = "/images/jumprope.jpg"
+randomImage[3] = "/images/plank.jpg"
+randomImage[4] = "/images/outdoors.jpg"
+randomImage[5] = "/images/kettlebells.jpg"
+randomImage[6] = "/images/lift.jpg"
+randomImage[6] = "/images/pushup.jpg"
 
-function getRandomImage() { 
-var number = Math.floor(Math.random()*randomImage.length);
-return '<img src="'+randomImage[number]+'" />'
+function getRandomImage() {
+   var number = Math.floor(Math.random() * randomImage.length)
+   return '<img src="' + randomImage[number] + '" />'
 }
 
 // let image = getRandomImage()
@@ -310,23 +323,27 @@ return '<img src="'+randomImage[number]+'" />'
 // let date = new Date() need to put in history
 
 async function getTotal(id) {
-   let count = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
-   
-      return count
-      
+   let count = await db.any(
+      "SELECT COUNT (*) FROM histories WHERE user_id =$1",
+      [id]
+   )
+
+   return count
 }
 
 async function getTotalByDate(id, days) {
    let date = getDate(days)
    // console.log(date)
-   let countByDate = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
+   let countByDate = await db.any(
+      "SELECT COUNT (*) FROM histories WHERE user_id =$1",
+      [id]
+   )
    return countByDate
-      
 }
 
 function getDate(days) {
-   var dateObj = new Date(); 
-                           
+   var dateObj = new Date()
+
    dateObj.setDate(dateObj.getDate() - days)
 
    return dateObj
@@ -337,5 +354,5 @@ function getDate(days) {
 /****************** CALC WORKOUT COUNTS FOR WEEK/MONTH FOR DASH END ********************** */
 
 app.listen(PORT, () => {
-   console.log('Server is running...')
+   console.log("Server is running...")
 })
