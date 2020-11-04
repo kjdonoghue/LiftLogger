@@ -123,7 +123,7 @@ app.post("/login", (req, res) => {
    })
 })
 // logout function - destroys session and renders login screen
-app.get("/logout", (req, res) => {
+app.post("/logout", (req, res) => {
    req.session.destroy()
    res.render("login")
 })

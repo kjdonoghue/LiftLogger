@@ -1,13 +1,21 @@
 <html>
+<html>
+   <head>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+      <link rel="stylesheet" href="/css/styles.css"/>
+   </head>
    <body>
-      <h1>Register</h1>
-      <form method="POST" action="/register">
-         <input type="text" placeholder="username" name="username" />
-         <input type="password" placeholder="password" name="password" />
-         <input type="text" placeholder="height" name="height" />
-         <input type="text" placeholder="weight" name="weight" />
-         <button>Register</button>
-      </form>
-      {{message}}
+      <div class="container">
+         <h1>Register</h1>
+         <form method="POST" action="/register">
+            <input type="text" placeholder="username" name="username" />
+            <input type="password" placeholder="password" name="password" />
+            <input type="text" placeholder="height" name="height" />
+            <input type="text" placeholder="weight" name="weight" />
+            <button>Register</button>
+         </form>
+         {{message}}
+      </div>
    </body>
 </html>
