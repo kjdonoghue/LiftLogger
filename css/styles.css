@@ -570,6 +570,12 @@ form {
     border: none;
     border-bottom: 1px solid #45A29E;
 }
+#registerBtn {
+    width: 200px;
+    height: 40px;
+    font-size: larger;
+    margin: 0 auto;
+}
 #register {
     display: flex;
     flex-direction: column;
