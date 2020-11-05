@@ -6,26 +6,28 @@
       <link rel="stylesheet" href="/css/styles.css"/>
    </head>
    <body>
-      <div id="register-container">
-         <h2>Nice for you to join us! </h2>
-         <form method="POST" action="/register">
-            <div id="register">
-               <input class="usernameTxt" type="text" placeholder="username" name="username" />
-               <br>
-               <input class="passwordTxt" type="password" placeholder="password" name="password" />
-               <br>
-               <input id="heightTxt" type="text" placeholder="height (inches)" name="height" />
-               <br>
-               <input id="weightTxt" type="text" placeholder="weight (lbs)" name="weight" />
-               <br>
-               <input id="ageTxt" type="text" placeholder="age" name="age" />
-               <br>
-               <input id="goalTxt" type="text" placeholder="weekly workout goal" name="goal" />
-               <br>
-            </div>
-            <button id="registerBtn">Register</button>
-         </form>
-         {{message}}
+      <div class="background-alt-2">
+         <div id="register-container">
+            <h2>Ready to start working out?</h2>
+            <form method="POST" action="/register">
+               <div id="register">
+                  <input class="usernameTxt" type="text" placeholder="username" name="username" />
+                  <br>
+                  <input class="passwordTxt" type="password" placeholder="password" name="password" />
+                  <br>
+                  <input id="heightTxt" type="text" placeholder="height (inches)" name="height" />
+                  <br>
+                  <input id="weightTxt" type="text" placeholder="weight (lbs)" name="weight" />
+                  <br>
+                  <input id="ageTxt" type="text" placeholder="age" name="age" />
+                  <br>
+                  <input id="goalTxt" type="text" placeholder="weekly workout goal" name="goal" />
+                  <br>
+               </div>
+               <button id="registerBtn">Register</button>
+            </form>
+            {{message}}
+         </div>
       </div>
    </body>
 </html>
