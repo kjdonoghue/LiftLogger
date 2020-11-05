@@ -251,6 +251,7 @@ form {
 .historyInfo {
     display: flex;
     flex-direction: column;
+    margin: 10px;
 
 }
 .historyInfo span {

@@ -187,10 +187,8 @@ app.get("/dashboard", authenticate, async (req, res) => {
 
         if (found) {
             let result = await db.any('SELECT users.user_id, username, height, weight, age, goal, workout_id, title, exercises FROM users JOIN workouts ON users.user_id = workouts.user_id WHERE users.user_id = $1', [id])
-            // let count = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
             let count = await getTotal(id)
             // let week = await getTotalByDate(id, 7)
-            // let month = await getTotalByDate(id, 30)
             user_dashboard = getUserDetails(result, count)
 
             res.render('dashboard', {Dashboard: user_dashboard})
@@ -201,7 +199,6 @@ app.get("/dashboard", authenticate, async (req, res) => {
         }          
     
 })
-
 
 //function for getting dashboard info with workouts
 function getUserDetails(result, count) {
@@ -300,11 +297,6 @@ app.get("/history", async (req, res) => {
             
         }          
     
-})
-
-app.get("/new", (req, res)  => {
-
-   res.render("new")
 })
 
 /****************** HISTORY END ********************** */
