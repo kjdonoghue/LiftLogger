@@ -489,7 +489,7 @@ form {
     justify-content: space-between;
     margin-top: 20%;
 }
-#logInBtn {
+#toLogInBtn {
     font-size: larger;
     width: 100px;
     height: 300%;
@@ -511,35 +511,64 @@ form {
     display: flex;
     flex-direction: column;
 }
+#loginBtn {
+    width: 200px;
+    height: 40px;
+    font-size: larger;
+    margin: 0 auto;
+}
+#guestBtn {
+    width: 200px;
+    height: 40px;
+    font-size: larger;
+    margin: 0 auto;
+}
+#toRegister {
+    width: 200px;
+    height: 40px;
+    font-size: larger;
+    margin: 0 auto;
+}
 .usernameTxt {
     background: transparent;
     border: none;
     border-bottom: 1px solid #000000;
+    font-size: larger;
 }
 .passwordTxt {
     background: transparent;
     border: none;
     border-bottom: 1px solid #000000;
+    font-size: larger;
 }
 #heightTxt {
     background: transparent;
     border: none;
     border-bottom: 1px solid #000000;
+    font-size: larger;
 }
 #weightTxt {
     background: transparent;
     border: none;
     border-bottom: 1px solid #000000;
+    font-size: larger;
 }
 #ageTxt {
     background: transparent;
     border: none;
     border-bottom: 1px solid #000000;
+    font-size: larger;
 }
 #goalTxt {
     background: transparent;
     border: none;
     border-bottom: 1px solid #000000;
+    font-size: larger;
+}
+#registerBtn {
+    width: 200px;
+    height: 40px;
+    font-size: larger;
 }
 #register {
     display: flex;
