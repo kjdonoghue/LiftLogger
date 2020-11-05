@@ -1,17 +1,17 @@
 // /* CONSTANTS */
 const express = require("express")
 const app = express()
-const PORT = 3000
+require('dotenv').config()
+const PORT = process.env.PORT
 const pgp = require("pg-promise")()
 var bcrypt = require("bcryptjs")
-const connectionString =
-   "postgres://skvpwhin:lXgkojz2TanCel7pEUUSDtGg-bEKm4NW@lallah.db.elephantsql.com:5432/skvpwhin"
+const connectionString = process.env.CONNECTION_STRING
 const db = pgp(connectionString)
 const mustacheExpress = require("mustache-express")
 const session = require("express-session")
 const path = require("path")
 const VIEWS_PATH = path.join(__dirname, "./views")
-// require('dotenv').config()
+
 /* CONSTANTS END*/
 
 /* CREATING VIEWS */
@@ -294,7 +294,7 @@ app.get("/history", authenticate, async (req, res) => {
         })       
 
         if (found) {
-            let result = await db.any('SELECT histories.user_id, workouts.title, workouts.exercises, workouts.workout_id, histories.date_completed, histories_id FROM histories JOIN workouts ON histories.user_id = workouts.user_id WHERE histories.user_id = $1 ORDER BY histories_id DESC', [id])
+            let result = await db.any('SELECT histories.user_id, histories.title, workouts.exercises, workouts.workout_id, histories.date_completed, histories_id FROM histories JOIN workouts ON histories.user_id = workouts.user_id WHERE histories.user_id = $1 ORDER BY histories_id DESC', [id])
             
             res.render('history', {History: result})
             
