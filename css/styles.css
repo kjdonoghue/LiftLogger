@@ -273,6 +273,7 @@ form {
     display: none;
 }
 
+
 /* Hamburger Menu */
 /* Style the navigation menu */
 #logOut {
@@ -333,6 +334,7 @@ form {
         color: #45A29E;
         font: 17px Arial;    
         height: 17px;
+        padding: 0px;
     }
     .barNavMenu {
         display: block;
@@ -350,7 +352,7 @@ form {
         float: left;
         text-align: center;
     }
-    
+
     .links {
         float: right;
     } 
