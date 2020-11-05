@@ -12,19 +12,19 @@
 
     <h1>Workout History</h1>
        {{#History}} 
-       <div class="historyItem">
+       <ul class="historyItem">
                             <form method="GET" action="/{{workout_id}}">
                             <button class="hiddenButton"> 
-                                <div class="historyInfo">
+                                <li class="historyInfo">
                                     <label><b>Workout Name:{{title}}</b></label> 
-                                    <span>Includes: {{exercises}}</span>                
+                                    <span>Includes: {{exercises}}</span>                 
                                     <span>Completed: {{date_completed}} </span>
                                     <input type="hidden" value={{workout_id}} name="workout_id"/>
-                                </div>
+                                </li>
                                 
                             </button>
                             </form>
-                        </div>
+                        </ul>
      {{/History}}
      {{^History}}
             <p>You have no saved workout routines</p>

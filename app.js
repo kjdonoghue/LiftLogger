@@ -294,8 +294,8 @@ app.get("/history", authenticate, async (req, res) => {
         })       
 
         if (found) {
-            let result = await db.any('SELECT histories.user_id, workouts.title, workouts.exercises, workouts.workout_id, histories.date_completed, histories_id FROM histories JOIN workouts ON histories.user_id = workouts.user_id WHERE histories.user_id = $1 ORDER BY histories_id DESC', [id])
-            
+            // let result = await db.any('SELECT histories.user_id, histories.workouts.title, workouts.exercises, workouts.workout_id, histories.date_completed, histories_id FROM histories JOIN workouts ON histories.user_id = workouts.user_id WHERE histories.user_id = $1 ORDER BY histories_id DESC', [id])
+            let result = await db.any('SELECT histories.user_id, histories.title, workouts.exercises, workouts.workout_id, histories.date_completed, histories_id FROM histories JOIN workouts ON histories.user_id = workouts.user_id WHERE histories.user_id = $1 ORDER BY histories_id DESC', [id])
             res.render('history', {History: result})
             
         } else {
