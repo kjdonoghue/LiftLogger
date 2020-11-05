@@ -1,0 +1,36 @@
+<html>
+<head>
+        <title>WORKOUT APP | History</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+
+    {{> header}}
+ 
+    <body>
+
+    <h1>Workout History</h1>
+       {{#History}} 
+       <div class="historyItem">
+                            <form method="GET" action="/{{workout_id}}">
+                            <button class="hiddenButton"> 
+                                <div class="historyInfo">
+                                    <label><b>Workout Name:{{title}}</b></label> 
+                                    <span>Includes: {{exercises}}</span>                
+                                    <span>Completed: {{date_completed}} </span>
+                                    <input type="hidden" value={{workout_id}} name="workout_id"/>
+                                </div>
+                                
+                            </button>
+                            </form>
+                        </div>
+     {{/History}}
+     {{^History}}
+            <p>You have no saved workout routines</p>
+    {{/History}}
+    
+    <script src="client/client-app.js"></script>
+    </body>
+
+</html>

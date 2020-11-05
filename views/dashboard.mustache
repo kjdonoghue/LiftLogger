@@ -18,15 +18,13 @@
             <div class="upperContainer">
                 <h1>Dashboard</h1>
                 <div class="statsContainer">
-                    <div class="statsDiv">
+                    <div class="statsDivLeft">
                         <b>{{username}}'s Stats</b>
                         <p>height: {{height}}</p>
                         <p>weight: {{weight}}</p>
-                        <p>age: {{age}}</p>
-
+                        <p>age: {{age}}</p>        
                         <p>Weekly Workout Goal: {{#count}} {{count}} {{/count}} {{^count}} 0 {{/count}} of {{goal}}</p>
-                        <p>Monthly Goal: {{#count}} {{count}} {{/count}} {{^count}} 0 {{/count}} of {{goal}}</p>
-                                                 
+                                                                        
                     </div>
 
                     <div class="statsDiv">
@@ -42,41 +40,63 @@
                     </div>
                 </div>
                              
-                <div>
-                {{! is this a link or do we need to pass user id in a form?}}
-                    <a href="routines">
-                        <button class="toRoutinesButton"> Go to Routines </button>
-                    </a>
-                </div>
+                {{! <div> }}
+                {{! is this a link or do we need to pass user id in a form?
+                    <form method= "GET" action="/routineCreator">
+                        <button class="toRoutinesButton"> Create a New Routine </button>
+                    </form> }}
+                 
+                {{! </div> }}
             </div>
 
             <div class="lowerContainer">
-                <h2>Workout History</h2>
-
+                <h2>Your Workouts</h2> 
+                
                 <div class="routinesContainer">
-            
-                {{#workouts}} 
-                    <div class="workoutItem"> 
-                        <form method= "POST" action="/select">
+                {{! Create a new routine}}  
 
-                            <div class="workoutImage">
-                                <img src="https://images.pexels.com/photos/2294354/pexels-photo-2294354.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
-                                <b class="displayTitle">{{title}}</b>
-                            </div>
-                            <div class="routineInfo">
-                                <label><b>{{title}}</b></label> 
-                                <span>Includes: {{exercises}}</span>
-                                {{! NEED to link a workout id }}
-                                <input type="hidden" value={{workout_id}} name="workout_id"/>            
-                                <button class="redoButton">Repeat This Workout</button>         
-                            </div>   
-                        </form>
-                    </div>
+                 <div class="workoutItem">
+                            <form method="GET" action="/routineCreator">
+                            <button class="hiddenButton"> 
+                                <div id="workoutImage" class="workoutImage"> 
+                                   <img src="/images/colorful-kettle.jpg"/>
+                                    <b class="displayTitle">Create Routine</b>
+                                </div>
+                                <div class="routineInfo">
+                                    <label><b>Create a Custom Routine</b></label> 
+                                    <span>Includes: exercises of your choice</span>                 
+                                </div>
+                                
+                            </button>
+                            </form>
+                        </div>                   
+                                
+                {{#workouts}} 
+
+                     <div class="workoutItem">
+                            <form method="GET" action="/{{workout_id}}">
+                            <button class="hiddenButton"> 
+                                <div id="workoutImage" class="workoutImage"> 
+                                   <img src="https://images.pexels.com/photos/2294354/pexels-photo-2294354.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+                                    <b class="displayTitle">{{title}}</b>
+                                </div>
+                                <div class="routineInfo">
+                                    <label><b>{{title}}</b></label> 
+                                    <span>Includes: {{exercises}}</span>                                           
+                                    <input type="hidden" value={{workout_id}} name="workout_id"/>            
+                                </div>
+                            </button>
+                           </form>
+                           <form method="POST" action="/delete-routine">
+                                <input type="hidden" value={{workout_id}} name="workout_id"/>  
+                                <button class="deleteButton">Delete</button>
+                            </form>
+                        </div>                    
 
                 {{/workouts}}
 
                 {{^workouts}}
-                    <p>There are no workouts in your history</p>
+                    <p>You have no saved workout routines</p>
                 {{/workouts}}
                 </div>
 
