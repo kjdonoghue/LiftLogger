@@ -148,7 +148,7 @@ form {
 
 .workoutItem span {
     font-size: 16px;
-    height: 35px;
+    height: 50px;
 }
 
 .deleteButton {
@@ -246,7 +246,7 @@ form {
     }
 
     .workoutItem span {
-        height: 50px;
+        height: 75px;
     }
 
 }
