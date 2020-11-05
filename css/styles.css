@@ -275,6 +275,13 @@ form {
 
 /* Hamburger Menu */
 /* Style the navigation menu */
+#logOut {
+    background: none;
+    border: none;
+    color: #66FCF1;
+    font: 17px Arial;
+    padding: 14px 16px;
+}
 .hamNavMenu {
     background-color: #45A29E;
     position: relative;
@@ -320,7 +327,13 @@ form {
     .hamNavMenu {
         display: none;
     }
-
+    #logOut {
+        background: none;
+        border: none;
+        color: #45A29E;
+        font: 17px Arial;    
+        height: 17px;
+    }
     .barNavMenu {
         display: block;
         overflow: hidden;

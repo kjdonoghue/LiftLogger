@@ -9,7 +9,9 @@
                 <a href="dashboard">Dashboard</a>
                 <a href="routineCreator">Create a Workouts</a>
                 <a href="history">History</a>
-                <a href="#">Log Out</a>
+                <form method="POST" action="/logout">
+                    <button id="logOut">Log Out</button>
+                </form>
             </div>
             <!-- open links on hamburger menu-->
             <a href=# class="icon" onclick="myFunction()">
@@ -24,7 +26,9 @@
                 <a href="dashboard">Dashboard</a>
                 <a href="routineCreator">Create Workouts</a>
                 <a href="history">History</a>
-                <a href="#">Log Out</a>
+                <form method="POST" action="/logout">
+                    <input id="logOut" type="submit" value="Log Out">
+                </form>
             </div>
 
         </nav>
