@@ -240,19 +240,6 @@ function getUserDetails(result, count) {
 
 /***************************** ROUTINES STUFF ***************************** */
 
-/* Routines Page */
-/* Display All Routines */
-app.get("/routines", async (req, res) => {
-   let id = req.session.userId
-   db.any('SELECT workout_id, title, exercises, image FROM workouts WHERE user_id = $1', [id])
-    .then(routines => {
-       console.log(routines)
-
-      
-       res.render('routines', {allRoutines: routines})
-   })
-})
-
 app.post("/delete-routine", (req, res) => {
    let workout_id = req.body.workout_id
 
@@ -294,7 +281,7 @@ function getDate(days) {
 
 /****************** CALC WORKOUT COUNTS FOR WEEK/MONTH FOR DASH END ********************** */
 /****************** HISTORY  ********************** */
-app.get("/history", async (req, res) => {
+app.get("/history", authenticate, async (req, res) => {
    let id = req.session.userId
    
               
@@ -310,7 +297,7 @@ app.get("/history", async (req, res) => {
             res.render('history', {History: result})
             
         } else {
-            res.render('dashboard')
+            res.render('history', {Message: "There are currently no workouts in your history"})
             
         }          
     
@@ -346,7 +333,7 @@ function formatDate() {
    return [year, month, day].join('-');
 }
 
-app.get("/:workout_id", (req, res) => {
+app.get("/:workout_id", authenticate, (req, res) => {
    let workout_id = req.params.workout_id
    
     db.any('SELECT workout_id, title, exercises, notes FROM workouts WHERE workout_id= $1', [workout_id])
