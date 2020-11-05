@@ -55,6 +55,8 @@ app.post("/register", (req, res) => {
    let password = req.body.password
    let height = req.body.height
    let weight = req.body.weight
+   let age = req.body.age
+   let goal = req.body.goal
    // looks to see if given username exists in the database
    db.any("SELECT username FROM users WHERE username=$1", username).then(
       (users) => {
@@ -68,8 +70,8 @@ app.post("/register", (req, res) => {
             bcrypt.genSalt(10, function (err, salt) {
                bcrypt.hash(password, salt, function (err, hash) {
                   db.none(
-                     "INSERT INTO users(username, password, height, weight) VALUES($1,$2,$3,$4)",
-                     [username, hash, height, weight]
+                     "INSERT INTO users(username, password, height, weight, age, goal) VALUES($1,$2,$3,$4,$5,$6)",
+                     [username, hash, height, weight, age, goal]
                   ).then(() => {
                      res.redirect("/login")
                   })
