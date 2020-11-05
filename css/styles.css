@@ -496,7 +496,7 @@ form {
     justify-content: space-between;
     margin-top: 20%;
 }
-#logInBtn {
+#toLogInBtn {
     font-size: larger;
     width: 100px;
     height: 300%;
@@ -518,44 +518,82 @@ form {
     display: flex;
     flex-direction: column;
 }
+#loginBtn {
+    width: 200px;
+    height: 40px;
+    font-size: larger;
+    margin: 0 auto;
+}
+#guestBtn {
+    width: 200px;
+    height: 40px;
+    font-size: larger;
+    margin: 0 auto;
+}
+#toRegister {
+    width: 200px;
+    height: 40px;
+    font-size: larger;
+    margin: 0 auto;
+}
 .usernameTxt {
     background: transparent;
     color: #66FCF1;
     border: none;
     border-bottom: 1px solid #45A29E;
+    font-size: larger;
 }
 .passwordTxt {
     background: transparent;
     color: #66FCF1;
     border: none;
     border-bottom: 1px solid #45A29E;
+    font-size: larger;
 }
 #heightTxt {
     background: transparent;
     color: #66FCF1;
     border: none;
     border-bottom: 1px solid #45A29E;
+    font-size: larger;
 }
 #weightTxt {
     background: transparent;
     color: #66FCF1;
     border: none;
     border-bottom: 1px solid #45A29E;
+    font-size: larger;
 }
 #ageTxt {
     background: transparent;
     color: #66FCF1;
     border: none;
     border-bottom: 1px solid #45A29E;
+    font-size: larger;
 }
 #goalTxt {
     background: transparent;
     color: #66FCF1;
     border: none;
     border-bottom: 1px solid #45A29E;
+    font-size: larger;
+}
+#registerBtn {
+    width: 200px;
+    height: 40px;
+    font-size: larger;
+    margin: 0 auto;
 }
 #register {
     display: flex;
     flex-direction: column;
+    justify-self: center;
+    align-self: center;
+}
+#register-container {
+    display: flex;
+    flex-direction: column;
+    top: 40%;
+    width: 50%;
 }
 /* auth end */
