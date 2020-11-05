@@ -335,10 +335,10 @@ function formatDate() {
    return [year, month, day].join('-');
 }
 
-app.get("/:workout_id", authenticate, (req, res) => {
+app.get("/:workout_id", authenticate, async (req, res) => {
    let workout_id = req.params.workout_id
    
-    db.any('SELECT workout_id, title, exercises, notes FROM workouts WHERE workout_id= $1', [workout_id])
+    await db.any('SELECT workout_id, title, exercises, notes FROM workouts WHERE workout_id= $1', [workout_id])
    .then(workout => {
       
       let exerciseList = workout.map((item) => {
@@ -346,7 +346,7 @@ app.get("/:workout_id", authenticate, (req, res) => {
       return item
    })
       res.render('workout', {exerciseList: exerciseList})
-    })
+    }).catch ((error) => {res.render("error")}) 
 })
 
 
