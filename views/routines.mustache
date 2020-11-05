@@ -34,12 +34,28 @@
                     {{! <h2>Select From Existing Routines</h2> }}
                     {{#allRoutines}}
 
+                    {{! Create a new routine}}                    
+                    <div class="workoutItem">
+                        <form method= "GET" action="/routineCreator">
+                            <button class="hiddenButton"> 
+                                <div class="workoutImage">
+                                    <img src="https://images.pexels.com/photos/221247/pexels-photo-221247.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+                                    <b class="displayTitle">Create a Custom Routine</b>
+                                </div>
+                                <div class="routineInfo">
+                                    <label><b>Custom Routine</b></label> 
+                                    <span>Includes: Create your own routine from available exercises</span>                           
+                                </div>
+                            </button>
+                        </form>         
+                    </div>
+
                         
                         <div class="workoutItem">
                             <form method="GET" action="/{{workout_id}}">
                             <button class="hiddenButton"> 
-                                <div class="workoutImage">    
-                                    <img src="https://images.pexels.com/photos/2294354/pexels-photo-2294354.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
+                                <div id="workoutImage" class="workoutImage"> 
+                                   <img src="https://images.pexels.com/photos/2294354/pexels-photo-2294354.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"/>
                                     <b class="displayTitle">{{title}}</b>
                                 </div>
                                 <div class="routineInfo">
@@ -52,7 +68,6 @@
                             </form>
                         </div>
                         
-
                     {{/allRoutines}}
                 </div> 
 

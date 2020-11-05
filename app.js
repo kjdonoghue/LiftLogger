@@ -139,17 +139,15 @@ function authenticate(req, res, next) {
 app.post("/creatingRoutine", (req, res) => {
    const title = req.body.title
    const exercises = req.body.exercises.join(",")
-   const image = getRandomImage()
-   // const user_id = req.session.userId
-   const user_id = 1
+   const user_id = req.session.userId
    
-   db.none("INSERT INTO workouts (title, exercises, image, user_id) VALUES ($1, $2, $3, $4)", [
+   
+   db.none("INSERT INTO workouts (title, exercises, user_id) VALUES ($1, $2, $3)", [
       title,
       exercises,
-      image,
       user_id
    ]).then(() => {
-      res.redirect("/routines")
+      res.redirect("/dashboard")
    })
 })
 
@@ -178,22 +176,21 @@ app.get("/routineCreator", (req, res) => {
 
 
 /***************************** DASHBOARD STUFF ***************************** */
-/* Display Dashboard Page */
 app.get("/dashboard", authenticate, async (req, res) => {
    let id = req.session.userId
               
-        let userHistory = await db.any('SELECT user_id FROM histories')   
+        let userWorkouts = await db.any('SELECT user_id FROM workouts')   
 
-        let found = userHistory.find(user => {
+        let found = userWorkouts.find(user => {
             return user.user_id == id
         })       
 
         if (found) {
-            let result = await db.any('SELECT users.user_id, username, height, weight, workout_name, exercises FROM users JOIN histories ON users.user_id = histories.user_id WHERE users.user_id = $1 ORDER BY date_completed DESC LIMIT 7', [id])
+            let result = await db.any('SELECT users.user_id, username, height, weight, age, goal, workout_id, title, exercises FROM users JOIN workouts ON users.user_id = workouts.user_id WHERE users.user_id = $1', [id])
             // let count = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
             let count = await getTotal(id)
-            let week = await getTotalByDate(id, 7)
-            let month = await getTotalByDate(id, 30)
+            // let week = await getTotalByDate(id, 7)
+            // let month = await getTotalByDate(id, 30)
             user_dashboard = getUserDetails(result, count)
 
             res.render('dashboard', {Dashboard: user_dashboard})
@@ -205,6 +202,7 @@ app.get("/dashboard", authenticate, async (req, res) => {
     
 })
 
+
 //function for getting dashboard info with workouts
 function getUserDetails(result, count) {
     
@@ -212,31 +210,35 @@ function getUserDetails(result, count) {
 
     result.forEach((item) => {
         if (user_dashboard.length == 0)  {
-            let information = {user_id: item.user_id, username: item.username, weight: item.weight, height: item.height, count: count, workouts: [{title: item.workout_name, exercises: item.exercises}]}
+            let information = {user_id: item.user_id, username: item.username, weight: item.weight, height: item.height, age: item.age, goal: item.goal, count: count, workouts: [{title: item.title, exercises: item.exercises, workout_id: item.workout_id}]}
             
             user_dashboard.push(information)
             
         } else {
             let information = user_dashboard.find(information => information.user_id == item.user_id)
             if (information) {
-                information.workouts.push({title: item.workout_name, exercises: item.exercises}) 
+                information.workouts.push({title: item.title, exercises: item.exercises, workout_id: item.workout_id}) 
             } 
         }
         
     })
     return user_dashboard
 }
+
 /***************************** ROUTINES STUFF ***************************** */
 
 /* Routines Page */
 /* Display All Routines */
-app.get("/routines", (req, res) => {
-   db.any('SELECT workout_id, title, exercises FROM workouts')
+app.get("/routines", async (req, res) => {
+   let id = req.session.userId
+   db.any('SELECT workout_id, title, exercises, image FROM workouts WHERE user_id = $1', [id])
     .then(routines => {
-        res.render('routines', {allRoutines: routines})
-    })
-})
+       console.log(routines)
 
+      
+       res.render('routines', {allRoutines: routines})
+   })
+})
 
 app.post("/delete-routine", (req, res) => {
     let workout_id = req.body.workout_id
@@ -248,85 +250,7 @@ app.post("/delete-routine", (req, res) => {
    
 })
 
-/***************************** DASHBOARD AND ROUTINES STUFF ***************************** */
 
-/* Go from Dashboard or Routines to Workout page after selecting workout*/
-// app.post("/select", (req, res) => {
-//     let workout_id = req.body.workout_id
-    
-//     db.any('SELECT workout_id, title, exercises, image FROM workouts WHERE workout_id= $1', [workout_id])
-//     .then(workout => {
-
-//          console.log(workout)
-//         res.render('workout', {selectedWorkout: workout})
-//     })
-
-// })
-
-app.get("/:workout_id", (req, res) => {
-   let workout_id = req.params.workout_id
-   
-   db.any('SELECT workout_id, title, exercises FROM workouts WHERE workout_id= $1', [workout_id])
-   .then(workout => {
-      
-      let exerciseList = workout.map((item) => {
-      item.exercises = item.exercises.split(",")
-      return item
-   })
-   console.log(exerciseList)
-
-   res.render('workout', {exerciseList: exerciseList})
-    })
-})
-
-/***************************** DASHBOARD AND ROUTINES STUFF END ***************************** */
-
-/***************************** ACCOUNT STUFF ***************************** */
-
-app.get("/account", async (req, res) => {
-   let id = req.session.userId
-   
-   let accountInfo = await db.any('SELECT username, password, weight, height, age, goal FROM users where user_id =$1', [id])
-
-   res.render("account", {Account: accountInfo})
-})
-
-
-app.post("/edit-height", authenticate, (res, req) => {
-   // let height = req.body.height
-   // let id = req.session.userId
-   console.log(id)
-   
-   // db.none('UPDATE users SET height = $1 WHERE user_id=$2', [height, id])
-
-   res.redirect("/account")
-
-})
-
-
-/***************************** ACCOUNT STUFF END ***************************** */
-/***************************** RANDOM IMAGE GENERATOR ***************************** */
-
-var randomImage = new Array();
-
-randomImage[0] = "/images/barbell.jpg";
-randomImage[1] = "/images/colorful-kettle.jpg";
-randomImage[2] = "/images/jumprope.jpg";
-randomImage[3] = "/images/plank.jpg";
-randomImage[4] = "/images/outdoors.jpg";
-randomImage[5] = "/images/kettlebells.jpg";
-randomImage[6] = "/images/lift.jpg";
-randomImage[6] = "/images/pushup.jpg";
-
-function getRandomImage() { 
-var number = Math.floor(Math.random()*randomImage.length);
-return '<img src="'+randomImage[number]+'" />'
-}
-
-// let image = getRandomImage()
-// console.log(image)
-
-/***************************** RANDOM IMAGE GENERATOR END ***************************** */
 /******************** CALC WORKOUT COUNTS FOR WEEK/MONTH FOR DASH ********************* */
 
 // let date = new Date() need to put in history
@@ -340,7 +264,6 @@ async function getTotal(id) {
 
 async function getTotalByDate(id, days) {
    let date = getDate(days)
-   // console.log(date)
    let countByDate = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
    return countByDate
       
@@ -354,24 +277,82 @@ function getDate(days) {
    return dateObj
 }
 
-// console.log(getDate(7))
-// console.log(getDate(30))
+
 /****************** CALC WORKOUT COUNTS FOR WEEK/MONTH FOR DASH END ********************** */
-
-/****************** WORKOUT PAGE ********************** */
-
-// app.get("/workout", async (req, res) => {
-//    // let id = req.session.userId
-//    let title = req.body.title
-//    console.log(title)
+/****************** HISTORY  ********************** */
+app.get("/history", async (req, res) => {
+   let id = req.session.userId
    
+              
+        let userHistory = await db.any('SELECT user_id FROM histories')   
 
-//    // let workout = db.any(SELECT )
+        let found = userHistory.find(user => {
+            return user.user_id == id
+        })       
 
-//    res.render("workout")
+        if (found) {
+            let result = await db.any('SELECT histories.user_id, workouts.title, workouts.exercises, workouts.workout_id, histories.date_completed, histories_id FROM histories JOIN workouts ON histories.user_id = workouts.user_id WHERE histories.user_id = $1 ORDER BY histories_id DESC', [id])
+            
+            res.render('history', {History: result})
+            
+        } else {
+            res.render('dashboard')
+            
+        }          
+    
+})
 
-// })
+app.get("/new", (req, res)  => {
 
+   res.render("new")
+})
+
+/****************** HISTORY END ********************** */
+/***************************** DASHBOARD AND ROUTINES STUFF ***************************** */
+
+app.post("/save", (req, res) => {
+   let id = req.session.userId
+   let exercises = req.body.exercises
+   let title = req.body.title
+   let date_completed = formatDate()
+    
+   db.none('INSERT INTO histories (title, user_id, exercises, date_completed) VALUES ($1, $2, $3, $4)', [title, id, exercises, date_completed])
+   .then(() => {
+      res.redirect('dashboard')
+   })
+  
+})
+
+function formatDate() {
+   var d = new Date(),
+       month = '' + (d.getMonth() + 1),
+       day = '' + d.getDate(),
+       year = d.getFullYear();
+
+   if (month.length < 2) 
+       month = '0' + month;
+   if (day.length < 2) 
+       day = '0' + day;
+
+   return [year, month, day].join('-');
+}
+
+app.get("/:workout_id", (req, res) => {
+   let workout_id = req.params.workout_id
+   
+    db.any('SELECT workout_id, title, exercises, notes FROM workouts WHERE workout_id= $1', [workout_id])
+   .then(workout => {
+      
+      let exerciseList = workout.map((item) => {
+      item.exercises = item.exercises.split(",")
+      return item
+   })
+      res.render('workout', {exerciseList: exerciseList})
+    })
+})
+
+
+/***************************** DASHBOARD AND ROUTINES STUFF END ***************************** */
 
 
 app.listen(PORT, () => {

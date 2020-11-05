@@ -14,10 +14,18 @@ body {
     text-align: center
 }
 
+.statsDivLeft {
+    text-align: center;
+    font-size: 18px;
+    padding-top: 25px;
+}
+
 .badge img {
    width: 90%;
 }
 
+
+/* 
 .toRoutinesButton {
     border: none;
     padding: 20px;
@@ -37,7 +45,7 @@ body {
     color: white;
     background-color: lightslategray;
 
-}
+} */
 
 /* Routines & Dashboard Pages */
 
@@ -52,6 +60,7 @@ body {
     align-items: center;
     width: 100%;
     max-width: 1000;
+    margin-bottom: 25px;
 }
 
 .lowerContainer {
@@ -60,6 +69,7 @@ body {
     align-items: center;
     width: 100%;
     max-width: 1000px;
+    border-top: solid slategray;
 }
 
 .lowerContainer h1, h2 {
@@ -78,7 +88,7 @@ body {
     margin-bottom: 15px;
     max-width: 400px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+    background-color: rgb(239, 239, 239);
 }
 
 .workoutItem:hover {
@@ -87,6 +97,7 @@ body {
 
 form {
     margin: 0px;
+    background-color: -internal-light-dark(rgb(239, 239, 239), rgb(59, 59, 59));
 }
 
 /* this button is hidden behind form on routine's page*/
@@ -133,7 +144,63 @@ form {
 
 .workoutItem span {
     font-size: 16px;
-    height: 50px;
+    height: 35px;
+}
+
+.deleteButton {
+    margin: 5px;
+    float: right;
+    cursor: pointer;
+    color: white;
+    background-color: lightslategray;
+    border: none;
+    padding: 5px;
+}
+
+/*  History Page */
+.timerContainer {
+    display: flex;
+    justify-content: center;
+    margin: 25px;
+}
+
+.timer {
+    font-size: xx-large;
+}
+
+.workoutContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.exerciseDiv {
+    display:flex;
+    flex-direction: column;
+    margin: 10px;
+
+}
+
+.exerciseItem {
+    display: flex;
+    justify-content:space-between;
+    margin: 10px;
+    padding: 10px;
+    border-style: solid;
+    width:300px;
+    background-color: slategray;
+    color: white;
+}
+
+.exerciseItem button {
+    border: none;
+    cursor: pointer;
+}
+
+.completedButton {
+    padding: 5px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 @media only screen and (min-width: 600px) {
@@ -148,11 +215,12 @@ form {
     }
 
     .badge img {
-        max-width: 250px;
+        max-width: 200px;
      }
       
     .lowercontainer h2 {
         align-self: end;
+        margin: 20px;
     }
 
     .routinesContainer {
@@ -164,14 +232,30 @@ form {
     .workoutItem {
         margin: 20px;
         max-width: 250px;
+        
     }
 
     .workoutItem span {
-        height: 75px;
+        height: 50px;
     }
 
 }
 
+/* HISTORY PAGE */
+.historyItem {
+    margin: 20px;
+    max-width: 300px;
+
+}
+
+.historyInfo {
+    display: flex;
+    flex-direction: column;
+
+}
+.historyInfo span {
+    margin: 5px;
+}
 
 /* MENU CSS */
 
@@ -207,7 +291,7 @@ form {
   
   /* hamburger menu icon */
   .hamNavMenu a.icon {
-    background: black;
+    background: slategray;
     display: block;
     position: absolute;
     right: 0;
@@ -260,7 +344,7 @@ form {
 
 }
 
-/* WORKOUT PHOTO CSS */
+/* WORKOUT PHOTO CSS
 .workoutImage img{
     width: 250px;
 }
@@ -272,4 +356,5 @@ form {
 
 .imageThumbnail {
     width: 150px;
-}
+} */
+

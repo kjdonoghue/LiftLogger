@@ -25,14 +25,61 @@ function myFunction() {
     }
     
   }
-/***************************** EDIT ACCOUNT ***************************** */
-  function editAccount(field) {
-    
-    let div = document.getElementById(field)
-    div.innerHTML = `<form method="POST" action="/edit-height"> <input type="text" placeholder="enter updated ${field}" name='${field}'></input>
-    <button> Submit </button>`
 
+/***************************** TIMER ***************************** */
+  
+let timer = document.getElementById("timer")
+   
+//sets timer on screen and starts countdown
+
+function setTimer(minutes) {
+  timer.innerHTML =
+    minutes + ":" + 00
+  startTimer()
+}
+
+// setTimer("5") this will call the timer to start - replace when building the page
+
+function startTimer() {
+  let presentTime = timer.innerHTML
+  let timeArray = presentTime.split(/[:]+/)
+  let m = timeArray[0]
+  var s = checkSecond((timeArray[1] - 1))
+  if (s == 59) {
+    m = m - 1
   }
 
+  timer.innerHTML = m + ":" + s
+  let countdown = setTimeout(startTimer, 1000) //starts countdown
 
-  
+  if (m == 0 && s == 00) {
+    console.log('timer completed')
+    clearTimeout(countdown) //stops countdown when 0:00
+  }
+}
+
+function checkSecond(sec) {
+  if (sec < 10 && sec >= 0) { sec = "0" + sec } // add zero in front of numbers < 10
+  if (sec < 0) { sec = "59" } //resets to 59 seconds
+  return sec
+}    
+
+
+// images
+let workoutImage = document.getElementById("workoutImage")
+
+var randomImage = new Array();
+
+randomImage[0] = "/images/barbell.jpg";
+randomImage[1] = "/images/colorful-kettle.jpg";
+randomImage[2] = "/images/jumprope.jpg";
+randomImage[3] = "/images/plank.jpg";
+randomImage[4] = "/images/outdoors.jpg";
+randomImage[5] = "/images/kettlebells.jpg";
+randomImage[6] = "/images/lift.jpg";
+randomImage[6] = "/images/pushup.jpg";
+
+function getRandomImage() { 
+var number = Math.floor(Math.random()*randomImage.length);
+workoutImage.innerHTML = '<img src="'+randomImage[number]+'" />'
+}

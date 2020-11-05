@@ -5,24 +5,49 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" href="/css/styles.css"/>
 </head>
+{{>header}}
 
    <body>
-     
-        
-     {{#exerciseList}}
+   <div>
+      <div class="timerContainer">
+         <div id="timer" class="timer">
+         1:00
 
+         </div>
+      </div>
+    
+      <div class="workoutContainer">
+         {{#exerciseList}}
+         
+         <h1>{{title}}</h1>
 
-     {{title}}
-     <ul>   
-        {{#exercises}}
-            <li>
-                {{.}}
-            </li>
-        {{/exercises}}
-    </ul>
-     {{/exerciseList}}
-  
+         {{notes}}
+         <div class="exerciseDiv">   
+            {{#exercises}}
+                  <div class="exerciseItem">
+                     {{.}}  <button onclick="setTimer(`1`)">Rest</button>
+                  </div>
+            {{/exercises}}
+         </div>
+         
+      
+      
+         <form method="POST" action="/save">
+         <input type=hidden value={{workout_id}} name="workout_id">
+         <input type=hidden value={{title}} name="title">
+         <input type=hidden value={{exerciseList}} name="exercises">
+         
+         <button class="completedButton">Workout Completed</button>
+         </form>
+         {{/exerciseList}}
 
-
+      </div>
+   </div>
+   
+   
+   
+     <script src="client/client-app.js"></script>
+   
+    
    </body>
 </html>
