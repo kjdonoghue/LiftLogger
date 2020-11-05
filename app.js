@@ -2,7 +2,7 @@
 const express = require("express")
 const app = express()
 require('dotenv').config()
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8080
 const pgp = require("pg-promise")()
 var bcrypt = require("bcryptjs")
 const connectionString = process.env.CONNECTION_STRING
