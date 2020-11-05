@@ -405,12 +405,14 @@ form {
     width: 100%;
     align-items: center;
     list-style: none;
+    border: solid;
+    padding: 10px;
 }
 
 .exercisesA {
     list-style: none;
     margin-bottom: 50px;
-    margin-right: 30px;
+    margin-right: 65px;
 }
 
 .exercisesA:hover .ddTest {
