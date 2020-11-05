@@ -425,4 +425,38 @@ form {
     display: flex;
     flex-direction: column;
 }
+.usernameTxt {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+.passwordTxt {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+#heightTxt {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+#weightTxt {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+#ageTxt {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+#goalTxt {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+#register {
+    display: flex;
+    flex-direction: column;
+}
 /* auth end */

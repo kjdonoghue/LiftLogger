@@ -9,11 +9,21 @@
       <div class="container">
          <h1>Register</h1>
          <form method="POST" action="/register">
-            <input type="text" placeholder="username" name="username" />
-            <input type="password" placeholder="password" name="password" />
-            <input type="text" placeholder="height" name="height" />
-            <input type="text" placeholder="weight" name="weight" />
-            <button>Register</button>
+            <div id="register">
+               <input class="usernameTxt" type="text" placeholder="username" name="username" />
+               <br>
+               <input class="passwordTxt" type="password" placeholder="password" name="password" />
+               <br>
+               <input id="heightTxt" type="text" placeholder="height" name="height" />
+               <br>
+               <input id="weightTxt" type="text" placeholder="weight" name="weight" />
+               <br>
+               <input id="ageTxt" type="text" placeholder="age" name="age" />
+               <br>
+               <input id="goalTxt" type="text" placeholder="weekly workout goal" name="goal" />
+               <br>
+            </div>
+            <button id="registerBtn">Register</button>
          </form>
          {{message}}
       </div>
