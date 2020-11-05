@@ -9,7 +9,7 @@
     {{> header}}
  
     <body>
-
+    <div class="historyContainer">
     <h1>Workout History</h1>
        {{#History}} 
        <div class="historyItem">
@@ -29,7 +29,7 @@
      {{^History}}
             <p>You have not saved your first workout!</p>
     {{/History}}
-    
+    </div>
     <script src="client/client-app.js"></script>
     </body>
 

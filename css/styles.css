@@ -207,6 +207,12 @@ form {
     cursor: pointer;
 }
 
+.historyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 @media only screen and (min-width: 600px) {
 
     /* Dashboard and Routines Pages */
