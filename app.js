@@ -245,7 +245,7 @@ app.post("/delete-routine", (req, res) => {
 
     db.none('DELETE FROM workouts WHERE workout_id=$1', [workout_id])
     .then(() => {
-        res.redirect('routines')
+        res.redirect('dashboard')
     })
    
 })
