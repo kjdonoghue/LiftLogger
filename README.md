@@ -52,7 +52,7 @@ An app developed for workout enthusiasts and beginners alike. Helps you make a r
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
 
 We created this site and app in order to provide users with a more efficient way of building and using different workout routines. We tried to make this an inclusive project for gym rats and those who are new to the workout scene. 
 
