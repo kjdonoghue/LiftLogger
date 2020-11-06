@@ -91,7 +91,7 @@ npm install dotenv<br>
 npm install express<br>
 npm install express-session<br>
 npm install mustache-express<br>
-npm install pg-promise
+npm install pg-promise<br>
 npm install env
 
 
