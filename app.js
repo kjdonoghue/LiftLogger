@@ -2,7 +2,8 @@
 const express = require("express")
 const app = express()
 require('dotenv').config()
-const PORT = process.env.PORT || 8080
+// const PORT = process.env.PORT || 8080
+const PORT = 3000
 const pgp = require("pg-promise")()
 var bcrypt = require("bcryptjs")
 const connectionString = process.env.CONNECTION_STRING
@@ -286,8 +287,8 @@ app.get("/history", authenticate, async (req, res) => {
         })       
 
         if (found) {
-            let result = await db.any('SELECT histories.user_id, histories.title, workouts.exercises, workouts.workout_id, histories.date_completed, histories_id FROM histories JOIN workouts ON histories.user_id = workouts.user_id WHERE histories.user_id = $1 ORDER BY histories_id DESC', [id])
-            
+            let result = await db.any('SELECT histories.user_id, histories.title, histories_wid, exercises, histories.date_completed, histories_id FROM histories WHERE user_id = $1 ORDER BY histories_id DESC', [id])
+                    
             res.render('history', {History: result})
             
         } else {
@@ -298,6 +299,7 @@ app.get("/history", authenticate, async (req, res) => {
 })
 
 /****************** HISTORY END ********************** */
+
 /***************************** DASHBOARD AND ROUTINES STUFF ***************************** */
 
 app.post("/save", (req, res) => {
@@ -305,8 +307,10 @@ app.post("/save", (req, res) => {
    let exercises = req.body.exercises
    let title = req.body.title
    let date_completed = formatDate()
+   let date = new Date()
+   let histories_wid = req.body.workout_id
     
-   db.none('INSERT INTO histories (title, user_id, exercises, date_completed) VALUES ($1, $2, $3, $4)', [title, id, exercises, date_completed])
+   db.none('INSERT INTO histories (title, user_id, exercises, date_completed, date, histories_wid) VALUES ($1, $2, $3, $4, $5, $6)', [title, id, exercises, date_completed, date, histories_wid])
    .then(() => {
       res.redirect('dashboard')
    })
@@ -338,7 +342,8 @@ app.get("/:workout_id", authenticate, async (req, res) => {
       return item
    })
       res.render('workout', {exerciseList: exerciseList})
-    }).catch ((error) => {res.render("error")}) 
+    })
+   //  .catch ((error) => {res.render("error")}) 
 })
 
 
