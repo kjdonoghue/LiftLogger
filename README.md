@@ -1,5 +1,5 @@
 # DigitalCrafts-BackEnd
-# <p align="center"><b>TEMP NAME</b>
+# <p align="center"><b>LiftLogger</b>
 An app developed for workout enthusiasts and beginners alike. Helps you make a routine and provides you with many different exercises to choose from based on what body part you want to target. Keep track of your history and repeat any of your past exercises to help yourself improve with the weight and sets of your workouts. </p>
 
 # <h2 align="center">![Visitor Count](https://profile-counter.glitch.me/{DomWat}/count.svg) Thank you for stopping by!
@@ -9,13 +9,15 @@ An app developed for workout enthusiasts and beginners alike. Helps you make a r
 
 
 <!-- PROJECT LOGO -->
+<p align="center">
+<img width="516" alt="ssLogo" src="https://user-images.githubusercontent.com/70596778/98381769-f875cc80-200f-11eb-8965-4710205197bb.png">
 <br />
 <!-- <p align="center">
   <a href="https://github.com/cristinahdz29/frontend_project.git">
     <img src="dcICON.png">
   </a> -->
 
-  <h3 align="center">TEMP NAME Project</h3><!-- YOUR_TITLE-->
+  <h3 align="center">LiftLogger Project</h3><!-- YOUR_TITLE-->
     
   <p align="center"><!-- YOUR_SHORT_DESCRIPTION -->
 **DigitalCrafts Houston and Atlanta Full-Stack Developers** This is a project designed by three members of the DigitalCraft immersive fullstack program. This app is a back-end developed project that uses Postgres, SQL, and Pg-Promise to display an app to allow users to create workouts based on different excersies and help them get stronger and fitter in the gym. This will also alow them to keep track of their history and to be able to repeat any of their past workouts. 
@@ -72,6 +74,8 @@ Why an app such as this can be helpfull:
 
 <!-- GETTING STARTED -->
 ## Getting Started
+Live link: https://infinite-escarpment-55503.herokuapp.com/
+
 You can copy the link from our GitHub code, or follow any of the links in this document to see the live site.
 
 ### Installation
@@ -88,6 +92,7 @@ npm install express<br>
 npm install express-session<br>
 npm install mustache-express<br>
 npm install pg-promise
+npm install env
 
 
 
@@ -101,8 +106,9 @@ _For more examples, please refer to the [Project-Demo](https://example.com)_
 ## Videos and Screenshots
 
 Here are some images of our code and our product. 
-<img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif"> 
-![dbzcode](https://user-images.githubusercontent.com/49554888/96146084-8b1cc300-0ecb-11eb-8025-1cb8b2e734f5.png)
+<img width="400" alt="ssLogin" src="https://user-images.githubusercontent.com/70596778/98380704-8486f480-200e-11eb-9cdc-80bd847201e1.png">
+<img width="942" alt="ssDashboard" src="https://user-images.githubusercontent.com/70596778/98381167-227abf00-200f-11eb-956f-245fc2fa526d.png">
+<img width="1017" alt="ssRoutine" src="https://user-images.githubusercontent.com/70596778/98381140-17c02a00-200f-11eb-9097-d9d5d93ab575.png">
 
 
 
