@@ -74,7 +74,7 @@ Why an app such as this can be helpfull:
 
 <!-- GETTING STARTED -->
 ## Getting Started
-Live link: https://infinite-escarpment-55503.herokuapp.com/
+Live link: https://dc-liftlogger.herokuapp.com/
 
 You can copy the link from our GitHub code, or follow any of the links in this document to see the live site.
 
