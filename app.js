@@ -16,10 +16,8 @@ const VIEWS_PATH = path.join(__dirname, "./views")
 
 /* CREATING VIEWS */
 app.use(express.urlencoded())
-// app.engine("mustache", mustacheExpress())
 app.engine("mustache", mustacheExpress(VIEWS_PATH + "/partials", ".mustache"))
 // the pages are located in views directory
-// app.set("views", "./views")
 app.set("views", VIEWS_PATH)
 // extension will be .mustache
 app.set("view engine", "mustache")
@@ -93,7 +91,7 @@ app.post("/guest", (req, res) => {
       req.session.password = password
       req.session.userId = userId
    }
-   res.redirect("/dashboard") // this will need to change to the dashboard
+   res.redirect("/dashboard")
 })
 // show the login page
 app.get("/login", (req, res) => {
@@ -117,7 +115,7 @@ app.post("/login", (req, res) => {
                         req.session.username = username
                         req.session.userId = element.user_id
                      }
-                     res.redirect("/dashboard") // this will need to change to the dashboard
+                     res.redirect("/dashboard")
                   } else {
                      res.render("login", {
                         message: "Username or password is incorrect",
@@ -255,13 +253,8 @@ app.post("/delete-routine", (req, res) => {
 
 /******************** CALC WORKOUT COUNTS FOR WEEK/MONTH FOR DASH ********************* */
 
-// let date = new Date() need to put in history
-
 async function getTotal(id) {
-   let count = await db.any(
-      "SELECT COUNT (*) FROM histories WHERE user_id =$1",
-      [id]
-   )
+   let count = await db.any("SELECT COUNT (*) FROM histories WHERE user_id =$1", [id])
 
    return count
 }
@@ -285,8 +278,7 @@ function getDate(days) {
 /****************** HISTORY  ********************** */
 app.get("/history", authenticate, async (req, res) => {
    let id = req.session.userId
-   
-              
+                 
         let userHistory = await db.any('SELECT user_id FROM histories')   
 
         let found = userHistory.find(user => {
