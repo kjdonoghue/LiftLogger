@@ -2,8 +2,7 @@
 const express = require("express")
 const app = express()
 require('dotenv').config()
-// const PORT = process.env.PORT || 8080
-const PORT = 3000
+const PORT = process.env.PORT || 8080
 const pgp = require("pg-promise")()
 var bcrypt = require("bcryptjs")
 const connectionString = process.env.CONNECTION_STRING
@@ -342,8 +341,7 @@ app.get("/:workout_id", authenticate, async (req, res) => {
       return item
    })
       res.render('workout', {exerciseList: exerciseList})
-    })
-   //  .catch ((error) => {res.render("error")}) 
+    }).catch ((error) => {res.render("error")}) 
 })
 
 
