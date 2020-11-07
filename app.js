@@ -6,7 +6,9 @@ require('dotenv').config()
 const PORT = 3000
 const pgp = require("pg-promise")()
 var bcrypt = require("bcryptjs")
-const connectionString = process.env.CONNECTION_STRING
+// const connectionString = process.env.CONNECTION_STRING
+
+const connectionString = "postgres://skvpwhin:lXgkojz2TanCel7pEUUSDtGg-bEKm4NW@lallah.db.elephantsql.com:5432/skvpwhin"
 const db = pgp(connectionString)
 const mustacheExpress = require("mustache-express")
 const session = require("express-session")
