@@ -2,7 +2,8 @@
 const express = require("express")
 const app = express()
 require('dotenv').config()
-const PORT = process.env.PORT
+// const PORT = process.env.PORT || 8080
+const PORT = 3000
 const pgp = require("pg-promise")()
 var bcrypt = require("bcryptjs")
 const connectionString = process.env.CONNECTION_STRING
@@ -16,10 +17,8 @@ const VIEWS_PATH = path.join(__dirname, "./views")
 
 /* CREATING VIEWS */
 app.use(express.urlencoded())
-// app.engine("mustache", mustacheExpress())
 app.engine("mustache", mustacheExpress(VIEWS_PATH + "/partials", ".mustache"))
 // the pages are located in views directory
-// app.set("views", "./views")
 app.set("views", VIEWS_PATH)
 // extension will be .mustache
 app.set("view engine", "mustache")
@@ -93,7 +92,7 @@ app.post("/guest", (req, res) => {
       req.session.password = password
       req.session.userId = userId
    }
-   res.redirect("/dashboard") // this will need to change to the dashboard
+   res.redirect("/dashboard")
 })
 // show the login page
 app.get("/login", (req, res) => {
@@ -117,7 +116,7 @@ app.post("/login", (req, res) => {
                         req.session.username = username
                         req.session.userId = element.user_id
                      }
-                     res.redirect("/dashboard") // this will need to change to the dashboard
+                     res.redirect("/dashboard")
                   } else {
                      res.render("login", {
                         message: "Username or password is incorrect",
@@ -206,8 +205,8 @@ app.get("/dashboard", authenticate, async (req, res) => {
         if (found) {
             let result = await db.any('SELECT users.user_id, username, height, weight, age, goal, workout_id, title, exercises FROM users JOIN workouts ON users.user_id = workouts.user_id WHERE users.user_id = $1', [id])
             let count = await getTotal(id)
-            // let week = await getTotalByDate(id, 7)
-            user_dashboard = getUserDetails(result, count)
+            let week = await getTotalByDate(id, 7)
+            user_dashboard = getUserDetails(result, count, week)
 
             res.render('dashboard', {Dashboard: user_dashboard})
             
@@ -219,13 +218,12 @@ app.get("/dashboard", authenticate, async (req, res) => {
 })
 
 //function for getting dashboard info with workouts
-function getUserDetails(result, count) {
-    
+function getUserDetails(result, count, week) {
     user_dashboard = []
 
     result.forEach((item) => {
         if (user_dashboard.length == 0)  {
-            let information = {user_id: item.user_id, username: item.username, weight: item.weight, height: item.height, age: item.age, goal: item.goal, count: count, workouts: [{title: item.title, exercises: item.exercises, workout_id: item.workout_id}]}
+            let information = {user_id: item.user_id, username: item.username, weight: item.weight, height: item.height, age: item.age, goal: item.goal, count: count, week: week, workouts: [{title: item.title, exercises: item.exercises, workout_id: item.workout_id}]}
             
             user_dashboard.push(information)
             
@@ -255,20 +253,15 @@ app.post("/delete-routine", (req, res) => {
 
 /******************** CALC WORKOUT COUNTS FOR WEEK/MONTH FOR DASH ********************* */
 
-// let date = new Date() need to put in history
-
 async function getTotal(id) {
-   let count = await db.any(
-      "SELECT COUNT (*) FROM histories WHERE user_id =$1",
-      [id]
-   )
-
+   let count = await db.any("SELECT COUNT (*) FROM histories WHERE user_id =$1", [id])
    return count
 }
 
 async function getTotalByDate(id, days) {
+   let today = new Date()
    let date = getDate(days)
-   let countByDate = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1', [id])
+   let countByDate = await db.any('SELECT COUNT (*) FROM histories WHERE user_id =$1 AND date BETWEEN $2 AND $3', [id, date, today])
    return countByDate
 }
 
@@ -285,60 +278,34 @@ function getDate(days) {
 /****************** HISTORY  ********************** */
 app.get("/history", authenticate, async (req, res) => {
    let id = req.session.userId
-   
-              
-        let userHistory = await db.any('SELECT user_id FROM histories')   
-
-        let found = userHistory.find(user => {
-            return user.user_id == id
-        })       
-
-        if (found) {
-            let result = await db.any('SELECT histories.user_id, histories.title, workouts.exercises, workouts.workout_id, histories.date_completed, histories_id FROM histories JOIN workouts ON histories.user_id = workouts.user_id WHERE histories.user_id = $1 ORDER BY histories_id DESC', [id])
-            
-            res.render('history', {History: result})
-            
-        } else {
-            res.render('history', {Message: "There are currently no workouts in your history"})
-            
-        }          
-    
+                 
+   let result = await db.any("SELECT user_id, title, histories_wid, exercises, TO_CHAR(date, 'DD/MM/YYYY') as date, histories_id FROM histories WHERE user_id = $1 ORDER BY histories_id DESC", [id]) 
+   res.render('history', {History: result})        
 })
 
 /****************** HISTORY END ********************** */
+
 /***************************** DASHBOARD AND ROUTINES STUFF ***************************** */
 
 app.post("/save", (req, res) => {
    let id = req.session.userId
    let exercises = req.body.exercises
    let title = req.body.title
-   let date_completed = formatDate()
+   let date = new Date()
+   let histories_wid = req.body.workout_id
     
-   db.none('INSERT INTO histories (title, user_id, exercises, date_completed) VALUES ($1, $2, $3, $4)', [title, id, exercises, date_completed])
+   db.none('INSERT INTO histories (title, user_id, exercises, date, histories_wid) VALUES ($1, $2, $3, $4, $5)', [title, id, exercises, date, histories_wid])
    .then(() => {
       res.redirect('dashboard')
    })
   
 })
 
-function formatDate() {
-   var d = new Date(),
-       month = '' + (d.getMonth() + 1),
-       day = '' + d.getDate(),
-       year = d.getFullYear();
 
-   if (month.length < 2) 
-       month = '0' + month;
-   if (day.length < 2) 
-       day = '0' + day;
-
-   return [year, month, day].join('-');
-}
-
-app.get("/:workout_id", authenticate, (req, res) => {
+app.get("/:workout_id", authenticate, async (req, res) => {
    let workout_id = req.params.workout_id
    
-    db.any('SELECT workout_id, title, exercises, notes FROM workouts WHERE workout_id= $1', [workout_id])
+    await db.any('SELECT workout_id, title, exercises, notes FROM workouts WHERE workout_id= $1', [workout_id])
    .then(workout => {
       
       let exerciseList = workout.map((item) => {
@@ -346,7 +313,7 @@ app.get("/:workout_id", authenticate, (req, res) => {
       return item
    })
       res.render('workout', {exerciseList: exerciseList})
-    })
+    }).catch ((error) => {res.render("error")}) 
 })
 
 

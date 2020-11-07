@@ -13,13 +13,13 @@
     <h1>Workout History</h1>
        {{#History}} 
        <div class="historyItem">
-                            <form method="GET" action="/{{workout_id}}">
+                            <form method="GET" action="/{{histories_wid}}">
                             <button class="hiddenButton"> 
                                 <div class="historyInfo">
-                                    <label><b>Workout Name:{{title}}</b></label> 
-                                    <span>Includes: {{exercises}}</span>                
-                                    <span>Completed: {{date_completed}} </span>
-                                    <input type="hidden" value={{workout_id}} name="workout_id"/>
+                                    <label><b>Workout Name:{{title}}</b></label>
+                                    <span>{{exercises}}</span>             
+                                    <span>Completed: {{date}} </span>
+                                    <input type="hidden" value={{histories_wid}} name="histories_wid"/>
                                 </div>
                                 
                             </button>
@@ -27,7 +27,7 @@
                         </div>
      {{/History}}
      {{^History}}
-            <p>You have not saved your first workout!</p>
+            <p>You have not saved your first workout yet!</p>
     {{/History}}
     </div>
     <script src="client/client-app.js"></script>
