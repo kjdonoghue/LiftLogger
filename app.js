@@ -313,7 +313,8 @@ app.get("/:workout_id", authenticate, async (req, res) => {
       return item
    })
       res.render('workout', {exerciseList: exerciseList})
-    }).catch ((error) => {res.render("error")}) 
+    })
+   //  .catch ((error) => {res.render("error")}) 
 })
 
 
