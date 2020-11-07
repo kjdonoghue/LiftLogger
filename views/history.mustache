@@ -16,8 +16,9 @@
                             <form method="GET" action="/{{histories_wid}}">
                             <button class="hiddenButton"> 
                                 <div class="historyInfo">
-                                    <label><b>Workout Name:{{title}}</b></label>             
-                                    <span>Completed: {{date_completed}} </span>
+                                    <label><b>Workout Name:{{title}}</b></label>
+                                    <span>{{exercises}}</span>             
+                                    <span>Completed: {{date}} </span>
                                     <input type="hidden" value={{histories_wid}} name="histories_wid"/>
                                 </div>
                                 
@@ -26,7 +27,7 @@
                         </div>
      {{/History}}
      {{^History}}
-            <p>You have not saved your first workout!</p>
+            <p>You have not saved your first workout yet!</p>
     {{/History}}
     </div>
     <script src="client/client-app.js"></script>
