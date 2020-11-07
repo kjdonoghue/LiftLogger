@@ -63,23 +63,3 @@ function checkSecond(sec) {
   if (sec < 0) { sec = "59" } //resets to 59 seconds
   return sec
 }    
-
-
-// images
-let workoutImage = document.getElementById("workoutImage")
-
-var randomImage = new Array();
-
-randomImage[0] = "/images/barbell.jpg";
-randomImage[1] = "/images/colorful-kettle.jpg";
-randomImage[2] = "/images/jumprope.jpg";
-randomImage[3] = "/images/plank.jpg";
-randomImage[4] = "/images/outdoors.jpg";
-randomImage[5] = "/images/kettlebells.jpg";
-randomImage[6] = "/images/lift.jpg";
-randomImage[6] = "/images/pushup.jpg";
-
-function getRandomImage() { 
-var number = Math.floor(Math.random()*randomImage.length);
-workoutImage.innerHTML = '<img src="'+randomImage[number]+'" />'
-}
