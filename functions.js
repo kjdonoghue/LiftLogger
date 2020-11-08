@@ -5,6 +5,21 @@ const connectionString = process.env.CONNECTION_STRING
 const db = pgp(connectionString)
 /* CONSTANTS END*/
 
+//authenticate session
+function authenticate(req, res, next) {
+    if (req.session) {
+       if (req.session.username) {
+          // continue with the original request
+          next()
+       } else {
+          res.redirect("/login")
+       }
+    } else {
+       res.redirect("/login")
+    }
+}
+
+
 //to create list of user and workout information for dashboard 
  function getUserDetails(result, count, week) {
     user_dashboard = []
@@ -49,4 +64,4 @@ const db = pgp(connectionString)
     return dateObj
  }
  
- module.exports = {getUserDetails, getTotal, getTotalByDate}
+ module.exports = {authenticate, getUserDetails, getTotal, getTotalByDate}

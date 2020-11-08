@@ -2,7 +2,6 @@
 const express = require("express")
 const app = express()
 require('dotenv').config()
-// const PORT = process.env.PORT || 8080
 const PORT = 3000
 const pgp = require("pg-promise")()
 var bcrypt = require("bcryptjs")
@@ -16,7 +15,7 @@ const indexRouter = require('./routes/index.js')
 const dashboardRouter = require('./routes/dashboard.js')
 const createRouter = require('./routes/routineCreator.js')
 const workoutRouter = require('./routes/workout.js')
-const authenticate = require('./authenticate')
+const functions = require('./functions')
 /* CONSTANTS END*/
 
 /* CREATING VIEWS */
@@ -36,9 +35,9 @@ app.use("/images", express.static("images"))
 
 /* ROUTES */
 app.use("/", indexRouter)
-app.use("/dashboard", authenticate, dashboardRouter)
-app.use("/routineCreator", authenticate, createRouter)
-app.use("/workout", authenticate, workoutRouter)
+app.use("/dashboard", functions.authenticate, dashboardRouter)
+app.use("/routineCreator", functions.authenticate, createRouter)
+app.use("/workout", functions.authenticate, workoutRouter)
 /* ROUTES END */
 
 

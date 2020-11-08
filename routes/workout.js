@@ -1,17 +1,9 @@
 // /* CONSTANTS */
 const express = require("express")
-const app = express()
 require('dotenv').config()
-// const PORT = process.env.PORT || 8080
-const PORT = 3000
 const pgp = require("pg-promise")()
-var bcrypt = require("bcryptjs")
 const connectionString = process.env.CONNECTION_STRING
 const db = pgp(connectionString)
-const mustacheExpress = require("mustache-express")
-const session = require("express-session")
-const path = require("path")
-const VIEWS_PATH = path.join(__dirname, "./views")
 const router = express.Router()
 /* CONSTANTS END*/
 
