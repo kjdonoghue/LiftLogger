@@ -15,6 +15,7 @@ const indexRouter = require('./routes/index.js')
 const dashboardRouter = require('./routes/dashboard.js')
 const createRouter = require('./routes/routineCreator.js')
 const workoutRouter = require('./routes/workout.js')
+const accountRouter = require('./routes/account.js')
 const functions = require('./functions')
 /* CONSTANTS END*/
 
@@ -38,6 +39,7 @@ app.use("/", indexRouter)
 app.use("/dashboard", functions.authenticate, dashboardRouter)
 app.use("/routineCreator", functions.authenticate, createRouter)
 app.use("/workout", functions.authenticate, workoutRouter)
+app.use("/account", functions.authenticate, accountRouter)
 /* ROUTES END */
 
 

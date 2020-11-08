@@ -1,0 +1,32 @@
+<html>
+<head>
+        <title>LiftLogger | Edit Account</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+
+    {{> header}}
+ 
+    <body>
+    <div class="accountContainer">
+    <h1>Edit User Information</h1>
+       {{#AccountDetails}} 
+        <form method="POST" action="/account/update">
+            <div class="accountDetails">
+                <span>Username:<input type="text" value="{{username}}" name="username"/> </span> 
+                <span>Height: <input type="text" value="{{height}}" name="height"/> </span> 
+                <span>Weight: <input type="text" value="{{weight}}" name="weight"/> </span> 
+                <span>Age: <input type="text" value="{{age}}" name="age"/> </span> 
+                <span>Weekly Goal: <input type="text" value="{{goal}}" name="goal"/> </span> 
+                <button class="acctSubmit">Submit</button>             
+            </div>
+        </form>  
+     {{/AccountDetails}}
+  
+
+    </div>
+    <script src="client/client-app.js"></script>
+    </body>
+
+</html>

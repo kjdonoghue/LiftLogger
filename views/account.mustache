@@ -1,0 +1,55 @@
+<html>
+<head>
+        <title>LiftLogger | Account</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+
+    {{> header}}
+ 
+    <body>
+    <div class="accountContainer">
+        <h1>Account Information</h1>
+        {{#AccountDetails}} 
+            <div class="accountDetails">
+                <span><h2>User Information</h2></span>
+                <span>Username: {{username}}</span> 
+                <span>Height: {{height}}</span>
+                <span>Weight: {{weight}}</span>
+                <span>Age: {{age}}</span>
+                <span>Weekly Workout Goal {{goal}}</span>
+                <a href="/account/edit-account">
+                    <button>Edit</button>
+                <a>             
+            </div>
+        {{/AccountDetails}}
+    
+    <div class="badgeContainer">
+        <div class="badgeItem">
+            <img src="/images/newbie-badge.png" alt="newbie-workout-badge"/>
+            <label>Earn the Never-Quit Newbie Badge for creating an account</label>
+        </div>
+        <div class="badgeItem">
+            <img src="/images/ten-badge.png" alt="ten-workouts-badge"/>
+            <label>Earn the Strong & Steady Badge for completing 10 workouts</label>
+        </div>
+        <div class="badgeItem">
+            <img src="/images/twenty-five-badge.png" alt="twenty-five-workouts-badge"/>
+            <label>Earn the Workout Wonder Badge for completing 25 workouts</label>
+        </div>
+        <div class="badgeItem">
+            <img src="/images/fifty-badge.png" alt="fifty-workouts-badge"/>
+            <label>Earn the Master of the Workout Badge for completing 50 workouts</label>
+        </div>
+         <div class="badgeItem">
+            <img src="/images/hundred-badge.png" alt="one-hundred-workouts-badge"/>
+            <label>Earn the Big Barbell Club Badge for completing 100 workouts</label>
+        </div>
+    </div>
+
+    </div>
+    <script src="client/client-app.js"></script>
+    </body>
+
+</html>

@@ -38,8 +38,6 @@ function setTimer(minutes) {
   startTimer()
 }
 
-// setTimer("5") this will call the timer to start - replace when building the page
-
 function startTimer() {
   let presentTime = timer.innerHTML
   let timeArray = presentTime.split(/[:]+/)

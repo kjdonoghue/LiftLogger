@@ -254,7 +254,8 @@ form {
 /* HISTORY PAGE */
 .historyItem {
     margin: 20px;
-    max-width: 300px;
+    width: 300px;
+
 
 }
 
@@ -471,23 +472,6 @@ form {
     background-color: #66FCF1;
 }
 
-
-
-/* ROUTINE CSS */
-/* WORKOUT PHOTO CSS */
-/* WORKOUT PHOTO CSS
-.workoutImage img{
-    width: 250px;
-}
-
-.thumbnails {
-    display: flex;
-    
-}
-
-.imageThumbnail {
-    width: 150px;
-}
 
 /* auth */
 @media (max-width: 375px) {
@@ -882,3 +866,85 @@ form {
 }
 
 /* auth end */
+
+/* Account Page */
+
+.accountContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.accountDetails{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    max-width: 1000px;
+    border-style: double;
+    padding: 10px;
+
+
+
+}
+
+.accountDetails span {
+    margin: 5px;
+}
+
+.accountDetails a {
+    align-self: center;
+    margin-top:20px;
+}
+
+.accountDetails button {
+    cursor: pointer;
+    color: #66FCF1;
+    background-color: #0b0c10;
+    border-color: #66FCF1;
+    padding: 5px;
+}
+
+.acctSubmit {
+    align-self: center;
+    margin-top: 20px,;
+    cursor: pointer;
+    color: #66FCF1;
+    background-color: #0b0c10;
+    border-color: #66FCF1;
+    padding: 5px;
+}
+
+.badgeContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+}
+
+.badgeItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 250px;
+    margin: 20px;
+
+}
+
+.badgeItem label {
+    text-align: center;
+}
+
+.badgeItem img {
+    max-width: 200px;
+}
+
+@media only screen and (min-width: 600px) { 
+    .accountDetails {
+        min-width:550px;
+    }
+    
+    .badgeContainer {
+        flex-direction: row;
+    }
+
+}

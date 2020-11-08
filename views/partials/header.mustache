@@ -3,12 +3,13 @@
         <header class="header">
 
          <nav class="hamNavMenu">
-            <a href="dashboard" class="active">LiftLogger</a>
+            <a href="/dashboard" class="active">LiftLogger</a>
             <!-- Navigation links (hidden by default) -->
             <div id="menuLinks">
                 <a href="/dashboard">Dashboard</a>
                 <a href="/routineCreator">Create Workouts</a>
                 <a href="dashboard/history">History</a>
+                <a href="/account">Account</a>
                 <form method="POST" action="/logout">
                     <button id="logOut">Log Out</button>
                 </form>
@@ -20,12 +21,13 @@
         </nav>
 
         <nav class="barNavMenu">
-            <a href="dashboard">LiftLogger</a>
+            <a href="/dashboard">LiftLogger</a>
             <!-- Navigation links -->
             <div class="links">
                 <a href="/dashboard">Dashboard</a>
                 <a href="/routineCreator">Create Workouts</a>
                 <a href="/dashboard/history">History</a>
+                <a href="/account">Account</a>
                 <a class="aButton"><form method="POST" action="/logout">
                     <input id="logOut" type="submit" value="Log Out">
                 </form></a>
