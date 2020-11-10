@@ -8,10 +8,12 @@ const router = express.Router()
 /* CONSTANTS END*/
 
 /***************************** SAVE WORKOUT ***************************** */
- 
+exerciseArray = []
+
 router.post("/save", (req, res) => {
     let id = req.session.userId
-    let exercises = req.body.exercises
+   //  let exercises = req.body.exercises
+    let exercises = exerciseArray
     let title = req.body.title
     let date = new Date()
     let histories_wid = req.body.workout_id
@@ -22,6 +24,19 @@ router.post("/save", (req, res) => {
     })
    
  })
+
+ router.post("/update-list", (req, res) => {
+    let exercise = req.body.exerciseName
+    let workout_id = req.body.workout_id
+
+   exerciseArray.push(exercise)
+   console.log(exerciseArray)
+
+   res.redirect(`/workout/${workout_id}`)
+
+ })
+
+
 /***************************** RENDER WORKOUT PAGE ***************************** */
 
  router.get("/:workout_id", async (req, res) => {

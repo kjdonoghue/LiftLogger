@@ -25,7 +25,10 @@
          <div class="exerciseDiv">   
             {{#exercises}}
                   <div class="exerciseItem">
-                     {{.}}  <button onclick="setTimer(`1`)">Rest</button>
+                  <form method="POST" action="/workout/update-list">
+                    <input type="text" value="{{.}}" name="exerciseName"/>  <button onclick="setTimer(`1`)">Completed</button>
+                     <input type="hidden" value="{{workout_id}}" name="workout_id" />
+                  </form>
                   </div>
             {{/exercises}}
          </div>
