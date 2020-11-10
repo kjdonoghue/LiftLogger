@@ -13,24 +13,27 @@ exerciseArray = []
 router.post("/save", (req, res) => {
     let id = req.session.userId
    //  let exercises = req.body.exercises
-    let exercises = exerciseArray
+    let exercises = exerciseArray.toString()
     let title = req.body.title
     let date = new Date()
     let histories_wid = req.body.workout_id
      
     db.none('INSERT INTO histories (title, user_id, exercises, date, histories_wid) VALUES ($1, $2, $3, $4, $5)', [title, id, exercises, date, histories_wid])
     .then(() => {
+      console.log(exerciseArray)
        res.redirect('/dashboard')
     })
    
  })
 
+
+/***************************** SAVE UPDATED WORKOUT ITEM ***************************** */
  router.post("/update-list", (req, res) => {
     let exercise = req.body.exerciseName
     let workout_id = req.body.workout_id
 
    exerciseArray.push(exercise)
-   console.log(exerciseArray)
+   
 
    res.redirect(`/workout/${workout_id}`)
 
