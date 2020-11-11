@@ -1,0 +1,54 @@
+<html>
+<head>
+        <title>WORKOUT APP | Workout</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+{{>header}}
+
+   <body>
+   <div>
+      <div class="timerContainer">
+         <div id="timer" class="timer">
+         1:00
+
+         </div>
+      </div>
+    
+      <div class="workoutContainer">
+         {{#exerciseList}}
+         
+         <h1>{{title}}</h1>
+
+         <div class="exerciseDiv">   
+            {{#exercises}}
+                  <div class="exerciseItem">
+                  <form method="POST" action="/workout-history/update-list">
+                    <input type="text" value="{{.}}" name="exerciseName"/>  <button onclick="setTimer(`1`)">Completed</button>
+                     <input type="hidden" value="{{histories_id}}" name="histories_id" />
+                  </form>
+                  </div>
+            {{/exercises}}
+         </div>
+         
+      
+      
+         <form method="POST" action="/workout/save">
+         <input type=hidden value={{workout_id}} name="workout_id">
+         <input type=hidden value="{{title}}" name="title">
+         <input type=hidden value="{{exercises}}" name="exercises"> 
+         <button class="completedButton">Workout Completed</button>
+         </form>
+         {{/exerciseList}}
+
+      </div>
+   </div>
+   
+   
+   
+     <script src="client/client-app.js"></script>
+   
+    
+   </body>
+</html>

@@ -45,16 +45,5 @@ router.post("/delete-routine", (req, res) => {
  
 /***************************** DASHBOARD END ***************************** */
  
-/****************** HISTORY PAGE ********************** */
-  router.get("/history", async (req, res) => {
-    let id = req.session.userId
-                  
-    let result = await db.any("SELECT user_id, title, histories_wid, exercises, TO_CHAR(date, 'DD/MM/YYYY') as date, histories_id FROM histories WHERE user_id = $1 ORDER BY histories_id DESC", [id]) 
-  
-    console.log(result)
-    res.render('history', {History: result})        
- })
- 
- /****************** HISTORY PAGE END ********************** */
 
  module.exports = router

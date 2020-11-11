@@ -13,13 +13,13 @@
     <h1>Workout History</h1>
        {{#History}} 
        <div class="historyItem">
-                            <form method="GET" action="/workout/{{histories_wid}}">
+                            <form method="GET" action="/history/{{histories_id}}">
                             <button class="hiddenButton"> 
                                 <div class="historyInfo">
                                     <label><b>Workout Name:{{title}}</b></label>
                                     <span>{{exercises}}</span>             
                                     <span>Completed: {{date}} </span>
-                                    <input type="hidden" value={{histories_wid}} name="histories_wid"/>
+                                    <input type="hidden" value={{histories_id}} name="histories_id"/>
                                 </div>
                                 
                             </button>
