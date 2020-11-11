@@ -20,8 +20,8 @@ router.post("/save", (req, res) => {
      
     db.none('INSERT INTO histories (title, user_id, exercises, date, histories_wid) VALUES ($1, $2, $3, $4, $5)', [title, id, exercises, date, histories_wid])
     .then(() => {
-      console.log(exerciseArray)
-       res.redirect('/dashboard')
+      exerciseArray = []
+      res.redirect('/dashboard')
     })
    
  })

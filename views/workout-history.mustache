@@ -9,12 +9,6 @@
 
    <body>
    <div>
-      <div class="timerContainer">
-         <div id="timer" class="timer">
-         1:00
-
-         </div>
-      </div>
     
       <div class="workoutContainer">
          {{#exerciseList}}
@@ -23,9 +17,9 @@
 
          <div class="exerciseDiv">   
             {{#exercises}}
-                  <div class="exerciseItem">
-                  <form method="POST" action="/workout-history/update-list">
-                    <input type="text" value="{{.}}" name="exerciseName"/>  <button onclick="setTimer(`1`)">Completed</button>
+                  <div class="exerciseItem" >
+                  <form method="POST" action="/history/update-history" class="exerciseForm">
+                    <input type="text" value="{{.}}" name="exerciseName"/>  <button>Completed</button>
                      <input type="hidden" value="{{histories_id}}" name="histories_id" />
                   </form>
                   </div>

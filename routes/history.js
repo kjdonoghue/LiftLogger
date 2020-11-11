@@ -15,13 +15,43 @@ router.get("/", async (req, res) => {
     res.render('history', {History: result})        
  })
 
+ exerciseArray = []
+
+ /********* SAVE UPDATED WORKOUT ITEM ON WORKOUT-HISTORIES PAGE **************** */
+ router.post("/update-history", (req, res) => {
+    let exercise = req.body.exerciseName
+    let histories_id = req.body.histories_id
+
+   exerciseArray.push(exercise)
+    
+
+   res.redirect(`/history/${histories_id}`)
+
+ })
+
+ /***************************** SAVE WORKOUT ***************************** */
+
+
+router.post("/save", (req, res) => {
+    let id = req.session.userId
+    let exercises = exerciseArray.toString()
+    let title = req.body.title
+    let date = new Date()
+     
+    db.none('INSERT INTO histories (title, user_id, exercises, date) VALUES ($1, $2, $3, $4)', [title, id, exercises, date])
+    .then(() => {
+      exerciseArray = []
+       res.redirect('/dashboard')
+    })
+   
+ })
+
  /****************** HISTORY WORKOUT PAGE ********************** */
 
  router.get("/:histories_id", async (req, res) => {
     let histories_id = req.params.histories_id
-    console.log(histories_id)
     
-     await db.any('SELECT histories_id, title, exercises FROM histories WHERE histories_id= $1', [histories_id])
+   await db.any('SELECT histories_id, title, exercises FROM histories WHERE histories_id= $1', [histories_id])
     .then(workout => {
        
        let exerciseList = workout.map((item) => {
@@ -32,7 +62,8 @@ router.get("/", async (req, res) => {
      })
     //  .catch ((error) => {res.render("error")}) 
  })
- 
+
+
  /****************** HISTORY PAGE END ********************** */
 
 

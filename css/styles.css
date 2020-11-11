@@ -458,6 +458,13 @@ form {
     background-color: (0, 136, 169, 1);
 }
 
+.exerciseForm {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
 .routineButton {
     padding: 9px 25px;
     background-color: #45A29E;
