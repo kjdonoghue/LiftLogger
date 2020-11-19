@@ -38,7 +38,7 @@ router.post("/delete-routine", (req, res) => {
  
      db.none('DELETE FROM workouts WHERE workout_id=$1', [workout_id])
      .then(() => {
-         res.redirect('dashboard')
+         res.redirect('/dashboard')
      })
     
  })
