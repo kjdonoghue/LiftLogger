@@ -25,7 +25,7 @@
          <div class="exerciseDiv">   
             {{#exercises}}
                   <div class="exerciseItem">
-                  <form method="POST" action="/workout/update-list" class="exerciseForm">
+                  <form method="GET" action="/workout/update-list" class="exerciseForm">
                     <input type="text" value="{{.}}" name="exerciseName"/>  <button>Completed</button>
                      <input type="hidden" value="{{workout_id}}" name="workout_id" />
                   </form>
