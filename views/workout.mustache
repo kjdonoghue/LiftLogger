@@ -9,25 +9,18 @@
 
    <body>
    <div>
-      <div class="timerContainer">
-         <div id="timer" class="timer">
-         1:00
-
-         </div>
-      </div>
-    
+          
       <div class="workoutContainer">
          {{#exerciseList}}
          
          <h1>{{title}}</h1>
 
-         {{notes}}
          <div class="exerciseDiv">   
             {{#exercises}}
                   <div class="exerciseItem">
-                  <form method="GET" action="/workout/update-list" class="exerciseForm">
+                  <form method="POST" action="/workout/update-list" class="exerciseForm">
                     <input type="text" value="{{.}}" name="exerciseName"/>  <button>Completed</button>
-                     <input type="hidden" value="{{workout_id}}" name="workout_id" />
+                     <input type="hidden" value={{workout_id}} name="workout_id" />
                   </form>
                   </div>
             {{/exercises}}

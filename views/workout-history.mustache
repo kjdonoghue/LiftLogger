@@ -20,7 +20,7 @@
                   <div class="exerciseItem" >
                   <form method="POST" action="/history/update-history" class="exerciseForm">
                     <input type="text" value="{{.}}" name="exerciseName"/>  <button>Completed</button>
-                     <input type="hidden" value="{{histories_id}}" name="histories_id" />
+                     <input type="hidden" value={{histories_id}} name="histories_id" />
                   </form>
                   </div>
             {{/exercises}}
