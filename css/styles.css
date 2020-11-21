@@ -255,8 +255,6 @@ form {
 .historyItem {
     margin: 20px;
     width: 300px;
-
-
 }
 
 .historyInfo {
@@ -880,6 +878,10 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.accountContainer h2{
+    text-align: center;
 }
 
 .accountDetails{
