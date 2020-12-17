@@ -1,10 +1,6 @@
 // /* CONSTANTS */
 const express = require("express")
-require('dotenv').config()
-const pgp = require("pg-promise")()
 var bcrypt = require("bcryptjs")
-const connectionString = process.env.CONNECTION_STRING
-const db = pgp(connectionString)
 const session = require("express-session")
 const router = express.Router()
 /* CONSTANTS END*/

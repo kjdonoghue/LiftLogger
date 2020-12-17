@@ -1,9 +1,5 @@
 // /* CONSTANTS */
 const express = require("express")
-const pgp = require("pg-promise")()
-require('dotenv').config()
-const connectionString = process.env.CONNECTION_STRING
-const db = pgp(connectionString)
 const router = express.Router()
 const functions = require('../functions')
 /* CONSTANTS END*/
