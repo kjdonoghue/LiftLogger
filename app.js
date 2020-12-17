@@ -4,9 +4,8 @@ const app = express()
 require('dotenv').config()
 const PORT = 3000
 const pgp = require("pg-promise")()
-var bcrypt = require("bcryptjs")
 const connectionString = process.env.CONNECTION_STRING
-const db = pgp(connectionString)
+global.db = pgp(connectionString)
 const mustacheExpress = require("mustache-express")
 const session = require("express-session")
 const path = require("path")
